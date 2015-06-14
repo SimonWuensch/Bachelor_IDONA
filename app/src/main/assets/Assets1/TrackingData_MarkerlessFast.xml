@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--	Sample tracking configuration for using the "fast" markerless tracker. 
+		The tracking does "localization" and then "interframe tracking".
+		This kind of sensor tracks planar objects (printed images, posters, 
+		etc.) by matching their intensities. The "fast" variant has the 
+		following properties: 
+		- It works at higher framerates. 
+		- It is able to track multiple planar objects simultaneously. 
+		- It can be sensitive to occlusions, specularities and light changes. 
+		Unless otherwise noted, all the values used in this configuration are 
+		the default values. 
+		-->
+
+<TrackingData>
+	  <Sensors>
+    <Sensor Type="FeatureBasedSensorSource" Subtype="Fast">
+        <SensorID>FeatureTracking1</SensorID>
+        <Parameters>
+            <FeatureDescriptorAlignment>regular</FeatureDescriptorAlignment>
+            <MaxObjectsToDetectPerFrame>10</MaxObjectsToDetectPerFrame>
+            <MaxObjectsToTrackInParallel>10</MaxObjectsToTrackInParallel>
+            <SimilarityThreshold>0.7</SimilarityThreshold>
+        </Parameters>
+        <SensorCOS>
+            <SensorCosID>Patch1</SensorCosID>
+            <Parameters>
+                <ReferenceImage>1_Tracker_Color_H_H_H.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+        <SensorCOS>
+            <SensorCosID>Patch2</SensorCosID>
+            <Parameters>
+                <ReferenceImage>target_two.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+
+    </Sensor>
+</Sensors>
+
+<Connections>
+    <COS>
+
+        <!--    A descriptive name for this COS. -->
+        <Name>MarkerlessCOS1</Name>
+        <Fuser Type="SmoothingFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking1</SensorID>
+            <SensorCosID>Patch1</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+            <COS>
+        <Name>MarkerlessCOS2</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking1</SensorID>
+            <SensorCosID>Patch2</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+</Connections>
+</TrackingData>

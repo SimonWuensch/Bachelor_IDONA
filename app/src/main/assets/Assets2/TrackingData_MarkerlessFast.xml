@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<!--	Sample tracking configuration for using the "fast" markerless tracker. 
+		The tracking does "localization" and then "interframe tracking".
+		This kind of sensor tracks planar objects (printed images, posters, 
+		etc.) by matching their intensities. The "fast" variant has the 
+		following properties: 
+		- It works at higher framerates. 
+		- It is able to track multiple planar objects simultaneously. 
+		- It can be sensitive to occlusions, specularities and light changes. 
+		Unless otherwise noted, all the values used in this configuration are 
+		the default values. 
+		-->
+
+<TrackingData>
+	  <Sensors>
+    <Sensor Type="FeatureBasedSensorSource" Subtype="Fast">
+        <SensorID>FeatureTracking1</SensorID>
+        <Parameters>
+            <FeatureDescriptorAlignment>regular</FeatureDescriptorAlignment>
+            <MaxObjectsToDetectPerFrame>10</MaxObjectsToDetectPerFrame>
+            <MaxObjectsToTrackInParallel>10</MaxObjectsToTrackInParallel>
+            <SimilarityThreshold>0.7</SimilarityThreshold>
+        </Parameters>
+        <SensorCOS>
+            <SensorCosID>Patch1</SensorCosID>
+            <Parameters>
+                <ReferenceImage>1_Tracker_Color_H_H_H.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+        <SensorCOS>
+            <SensorCosID>Patch2</SensorCosID>
+            <Parameters>
+                <ReferenceImage>2_Tracker_No_Color_H_H_H.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS><SensorCOS>
+            <SensorCosID>Patch3</SensorCosID>
+            <Parameters>
+                <ReferenceImage>3_Tracker_Color_M_M_M.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+        <SensorCOS>
+            <SensorCosID>Patch4</SensorCosID>
+            <Parameters>
+                <ReferenceImage>4_Tracker_No_Color_M_M_M.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS><SensorCOS>
+            <SensorCosID>Patch5</SensorCosID>
+            <Parameters>
+                <ReferenceImage>5_Tracker_Color_L_L_L.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+        <SensorCOS>
+            <SensorCosID>Patch6</SensorCosID>
+            <Parameters>
+                <ReferenceImage>6_Tracker_No_Color_L_L_L.png</ReferenceImage>
+                <SimilarityThreshold>0.7</SimilarityThreshold>
+            </Parameters>
+        </SensorCOS>
+
+    </Sensor>
+</Sensors>
+
+<Connections>
+    <COS>
+
+        <!--    A descriptive name for this COS. -->
+        <Name>MarkerlessCOS1</Name>
+        <Fuser Type="SmoothingFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking1</SensorID>
+            <SensorCosID>Patch1</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+    <COS>
+        <Name>MarkerlessCOS2</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking2</SensorID>
+            <SensorCosID>Patch2</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+    <COS>
+        <Name>MarkerlessCOS3</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking3</SensorID>
+            <SensorCosID>Patch3</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+    <COS>
+        <Name>MarkerlessCOS4</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking4</SensorID>
+            <SensorCosID>Patch4</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+    <COS>
+        <Name>MarkerlessCOS5</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking5</SensorID>
+            <SensorCosID>Patch5</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+    <COS>
+        <Name>MarkerlessCOS6</Name>
+        <Fuser Type="BestQualityFuser">
+            <Parameters>
+                <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                <GravityAssistance></GravityAssistance>
+                <AlphaTranslation>0.8</AlphaTranslation>
+                <GammaTranslation>0.8</GammaTranslation>
+                <AlphaRotation>0.5</AlphaRotation>
+                <GammaRotation>0.5</GammaRotation>
+                <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+            </Parameters>
+        </Fuser>
+
+        <SensorSource>
+            <SensorID>FeatureTracking6</SensorID>
+            <SensorCosID>Patch6</SensorCosID>
+            <HandEyeCalibration>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </HandEyeCalibration>
+            <COSOffset>
+                <TranslationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                </TranslationOffset>
+                <RotationOffset>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>1</W>
+                </RotationOffset>
+            </COSOffset>
+        </SensorSource>
+    </COS>
+
+</Connections>
+</TrackingData>
