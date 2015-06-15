@@ -53,6 +53,7 @@
         android:layout_alignParentStart="true"/>
 
     <Button
+        android:id="@+id/buttonMinZ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="minRotateZ"
@@ -80,5 +81,15 @@
         android:layout_above="@+id/buttonMinY"
         android:layout_alignRight="@+id/buttonMinY"
         android:layout_alignEnd="@+id/buttonMinY" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="print"
+        android:id="@+id/button5"
+        android:onClick="print"
+        android:layout_above="@+id/buttonMinZ"
+        android:layout_alignRight="@+id/buttonMinZ"
+        android:layout_alignEnd="@+id/buttonMinZ" />
 
 </RelativeLayout>

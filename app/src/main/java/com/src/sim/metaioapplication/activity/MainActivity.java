@@ -1,4 +1,4 @@
-package com.src.sim.metaioapplication;
+package com.src.sim.metaioapplication.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,13 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.tools.io.AssetsManager;
-import com.src.sim.metaioapplication.model.ARConfiguration;
+import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.metaio.ARConfiguration;
 
 import java.io.IOException;
 
 public class MainActivity extends Activity {
 
     AssetsExtrater mTask;
+    private Intent arItent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +27,18 @@ public class MainActivity extends Activity {
         mTask = new AssetsExtrater();
         mTask.execute(0);
 
-        Intent intent = new Intent(getApplicationContext(), ARConfiguration.class);
-        startActivity(intent);
+        arItent = new Intent(getApplicationContext(), ARConfiguration.class);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
