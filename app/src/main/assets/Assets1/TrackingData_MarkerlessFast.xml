@@ -24,7 +24,7 @@
         <SensorCOS>
             <SensorCosID>Patch1</SensorCosID>
             <Parameters>
-                <ReferenceImage>1_Tracker_Color_H_H_H.png</ReferenceImage>
+                <ReferenceImage>ID_marker_1_500mm-1.png</ReferenceImage>
                 <SimilarityThreshold>0.7</SimilarityThreshold>
             </Parameters>
         </SensorCOS>
