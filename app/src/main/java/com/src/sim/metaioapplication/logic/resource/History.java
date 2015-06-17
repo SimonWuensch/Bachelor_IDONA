@@ -1,4 +1,4 @@
-package com.src.sim.metaioapplication.logic;
+package com.src.sim.metaioapplication.logic.resource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +7,8 @@ import java.util.Map;
 
 import com.owlike.genson.Genson;
 import com.owlike.genson.annotation.JsonIgnore;
-import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.ToiletKind;
-import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.Tracker;
 
 public class History {
 
@@ -30,7 +27,7 @@ public class History {
         return genson.serialize(this);
     }
 
-    public static History JsonToTrackerInitiator(String jsonString) {
+    public static History JsonToHistory(String jsonString) {
         Genson genson = new Genson();
         return genson.deserialize(jsonString, History.class);
     }

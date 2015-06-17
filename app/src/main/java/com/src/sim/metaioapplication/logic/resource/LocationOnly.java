@@ -1,8 +1,9 @@
 package com.src.sim.metaioapplication.logic.resource;
 
+import android.util.Log;
+
 import com.owlike.genson.Genson;
 import com.owlike.genson.annotation.JsonIgnore;
-import com.src.sim.metaioapplication.logic.History;
 
 public class LocationOnly {
 
@@ -11,25 +12,25 @@ public class LocationOnly {
 	private String street;
 	private String number;
 	private String zip;
-	@JsonIgnore
-	private History initiator;
+    private String place;
 
 	public LocationOnly() {
-
 	}
 
-	public LocationOnly(String name, String street, String number, String zip) {
+	public LocationOnly(String name, String street, String number, String zip, String place) {
 		super();
 		this.name = name;
 		this.street = street;
 		this.number = number;
 		this.zip = zip;
+        this.place = place;
 	}
 
-	public String toJson() {
-		Genson genson = new Genson();
-		return genson.serialize(this);
-	}
+    public String toJson() {
+        Genson genson = new Genson();
+        String jsonString = genson.serialize(this);
+        return jsonString;
+    }
 
 	public static LocationOnly JsonToLocationOnly(String jsonString) {
 		Genson genson = new Genson();
@@ -46,46 +47,43 @@ public class LocationOnly {
 		this.id = id;
 	}
 
-	@JsonIgnore
-	public History getInitiator() {
-		return initiator;
-	}
-	
-	@JsonIgnore
-	public void setInitiator(History initiator) {
-		this.initiator = initiator;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getStreet() {
+        return street;
+    }
 
-	public String getStreet() {
-		return street;
-	}
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    public String getNumber() {
+        return number;
+    }
 
-	public String getNumber() {
-		return number;
-	}
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    public String getZip() {
+        return zip;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public String getPlace() {
+        return place;
+    }
 
+    public void setPlace(String place) {
+        this.place = place;
+    }
 }

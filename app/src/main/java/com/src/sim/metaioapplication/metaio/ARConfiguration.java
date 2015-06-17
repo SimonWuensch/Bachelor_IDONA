@@ -20,6 +20,9 @@ import java.util.List;
  */
 public class ARConfiguration extends ARViewActivity{
 
+    public static String LOCATIONJSON = "locationJson";
+    public static String HISTORYJSON = "historyJson";
+
     private String mTrackingFile;
 
    /* private static Rotation LEFT = new Rotation(0.0f, 0.0f, 3.1599975f);

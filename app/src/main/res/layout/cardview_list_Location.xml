@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/CardView_list_location"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardElevation="6dp"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:longClickable="false">
+
+        <TableLayout android:id="@+id/fOverView_tTableInfo" android:layout_height="wrap_content" android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:baselineAligned="true"
+            android:layout_marginBottom="5dp">
+
+            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Name"
+                    android:id="@+id/cardview_list_location_tvName"
+                    android:layout_marginBottom="1dp" />
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Street + Number"
+                    android:id="@+id/cardview_list_location_tvStreetAndNumber"
+                    android:layout_marginBottom="1dp" />
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="ZIP"
+                    android:id="@+id/cardview_list_location_tvZip"
+                    android:layout_marginBottom="1dp" />
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Place"
+                    android:id="@+id/cardview_list_location_tvPlace"
+                    android:layout_marginBottom="1dp" />
+            </TableRow>
+        </TableLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
