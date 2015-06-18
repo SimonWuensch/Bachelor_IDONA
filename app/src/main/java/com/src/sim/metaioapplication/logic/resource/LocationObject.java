@@ -1,5 +1,7 @@
 package com.src.sim.metaioapplication.logic.resource;
 
+import com.owlike.genson.Genson;
+
 public class LocationObject {
 
 	public enum Kind {
@@ -31,6 +33,17 @@ public class LocationObject {
 	public LocationObject() {
 
 	}
+
+    public String toJson() {
+        Genson genson = new Genson();
+        String jsonString = genson.serialize(this);
+        return jsonString;
+    }
+
+    public static LocationObject JsonToLocationObject(String jsonString) {
+        Genson genson = new Genson();
+        return genson.deserialize(jsonString, LocationObject.class);
+    }
 
 	public Kind getKind() {
 		return kind;

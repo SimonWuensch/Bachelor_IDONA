@@ -120,7 +120,11 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
 
     public History getHistory(LocationOnly location){
         if(locationHistoryMap != null)
-            return locationHistoryMap.get(location);
+            for(LocationOnly locationValue : locationHistoryMap.keySet()){
+                if(locationValue.getId() == location.getId()){
+                    return locationHistoryMap.get(locationValue);
+                }
+            }
 
         Cursor cursor = queryTableIdona();
         if (cursor != null) {
@@ -130,7 +134,7 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
                     if(id == location.getId()){
                         History history = History.JsonToHistory(cursor.getString(cursor.getColumnIndex(_HISTORY_JSON)));
                         history.setId(id);
-                        Log.d(TAG, "History obtained " + history.toJson());
+                        Log.d(TAG, "History obtained");
                         return history;
                     }
                     cursor.moveToNext();

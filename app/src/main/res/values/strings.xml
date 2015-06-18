@@ -3,4 +3,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="metaioSDKSignature">i0+DJn6P0s4CH7IUdDu9fHIlSiFdxgkr1Y0jp77kFWQ=</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

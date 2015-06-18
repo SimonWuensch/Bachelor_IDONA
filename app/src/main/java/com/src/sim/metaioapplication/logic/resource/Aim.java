@@ -12,6 +12,8 @@ public class Aim {
 		this.lObject = lObject;
 	}
 
+    public Aim(){}
+
 	public Tracker getTracker() {
 		return tracker;
 	}
@@ -39,4 +41,8 @@ public class Aim {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
+
+    public boolean hasTracker(){
+        return tracker != null;
+    }
 }

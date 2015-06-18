@@ -4,28 +4,35 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.src.sim.metaioapplication.asynctask.AssetsExtrater;
 import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
 import com.src.sim.metaioapplication.listener.CustomListener;
+import com.src.sim.metaioapplication.logic.resource.Aim;
 import com.src.sim.metaioapplication.logic.resource.History;
+import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.metaio.ARConfiguration;
 import com.src.sim.metaioapplication.ui.fragment.location.ListLocationFragment;
-
-import java.util.Map;
+import com.src.sim.metaioapplication.ui.fragment.object.ListObjectFragment;
 
 public class MainActivity extends Activity implements CustomListener{
 
-    public static String LISTLOCATIONFRAGMENT = "fragmentlocationlist";
+    public static String LOCATIONFRAGMENT = "fragmentlocationlist";
+    public static String OBJECTFRAGMENT = "fragmentobject";
+
+    public static String HISTORYEXTRA = "historyextra";
+    public static String LOCATIONOBJECTEXTRA = "locationobjectextra";
 
     private Intent arItent;
     private MyDataBaseSQLite dataBase;
+
+    private Aim aim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +41,7 @@ public class MainActivity extends Activity implements CustomListener{
 
         //new AssetsExtrater().extractAllAssets(this);
         dataBase = new MyDataBaseSQLite(this);
-        //new NetworkCommunikation(this).execute();
-
-        getFragmentManager().beginTransaction().add(R.id.activity_main_flFragmentContainer,  new ListLocationFragment(), LISTLOCATIONFRAGMENT).addToBackStack(LISTLOCATIONFRAGMENT).commit();
-
-       // showFragment(new ListLocationFragment(), LISTLOCATIONFRAGMENT);
-
-        //arItent = new Intent(getApplicationContext(), ARConfiguration.class);
+        showFragment(new ListLocationFragment(), LOCATIONFRAGMENT);
     }
 
     public void showFragment(Fragment fragment, String backstack){
@@ -73,12 +74,35 @@ public class MainActivity extends Activity implements CustomListener{
 
     @Override
     public View.OnClickListener handleCardLocationClick(final LocationOnly location){
-       final Activity activity = this;
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, location.getName() + " ", Toast.LENGTH_LONG).show();
+                showFragment(ListObjectFragment.newInstance(location), OBJECTFRAGMENT);
             }
         };
+    }
+
+    @Override
+    public View.OnClickListener handleLocationObjectClick(final History history, final LocationObject locationObject){
+        final Activity activity = this;
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, locationObject.getDescription() + " ", Toast.LENGTH_LONG).show();
+                aim = new Aim();
+                aim.setlObject(locationObject);
+
+                Intent intent = new Intent(activity, ARConfiguration.class);
+                intent.putExtra(HISTORYEXTRA, history.toJson());
+                intent.putExtra(LOCATIONOBJECTEXTRA, locationObject.toJson());
+                startActivity(intent);
+            }
+        };
+    }
+
+    @Override
+    public void startNavigation(int trackerId){
+        if(!aim.hasTracker()){
+        }
     }
 }

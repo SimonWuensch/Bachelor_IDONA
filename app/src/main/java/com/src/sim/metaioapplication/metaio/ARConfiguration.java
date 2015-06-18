@@ -1,5 +1,7 @@
 package com.src.sim.metaioapplication.metaio;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -11,6 +13,9 @@ import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.logic.resource.History;
+import com.src.sim.metaioapplication.logic.resource.LocationObject;
+import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,26 +25,46 @@ import java.util.List;
  */
 public class ARConfiguration extends ARViewActivity{
 
-    public static String LOCATIONJSON = "locationJson";
-    public static String HISTORYJSON = "historyJson";
+    public enum GeometryRotation{
+        LEFT(0.0f, 0.0f, 3.1599975f),
+        UP(0.0f, 0.0f, 1.5999988f),
+        RIGHT_UP(0.0f, 0.0f ,0.51999986f),
+        LEFT_UP(0.0f, 0.0f ,2.639998f),
+        RIGHT(0.0f, 0.0f ,0.0f),
+        DOWN(0.0f, 0.0f ,-1.5999988f),
+        RIGHT_DOWN(0.0f, 0.0f ,-0.43999988f),
+        LEFT_DOWN(0.0f, 0.0f ,-2.719998f);
+
+        private Rotation rotation;
+
+        private GeometryRotation(float x, float y, float z){
+            rotation = new Rotation(x, y, z);
+        }
+
+        public Rotation getRotation(){
+            return rotation;
+        }
+    }
 
     private String mTrackingFile;
-
-   /* private static Rotation LEFT = new Rotation(0.0f, 0.0f, 3.1599975f);
-    private static Rotation UP = new Rotation(0.0f, 0.0f, 1.5999988f);
-    private static Rotation RIGHT_UP = new Rotation(0.0f, 0.0f ,0.51999986f);
-    private static Rotation LEFT_UP = new Rotation(0.0f, 0.0f ,2.639998f);
-    private static Rotation RIGHT = new Rotation(0.0f, 0.0f ,0.0f);
-    private static Rotation DOWN = new Rotation(0.0f, 0.0f ,-1.5999988f);
-    private static Rotation RIGHT_DOWN = new Rotation(0.0f, 0.0f ,-0.43999988f);
-    private static Rotation LEFT_DOWN = new Rotation(0.0f, 0.0f ,-2.719998f);*/
-
     private List<IGeometry> geometries;
     private MetaioSDKCallbackHandler mCallbackHandler;
 
-    float x = 0f;
-    float y = 0f;
-    float z = 0f;
+    private History history;
+    private LocationObject locationObject;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        history = History.JsonToHistory(getIntent().getStringExtra(MainActivity.HISTORYEXTRA));
+        locationObject = LocationObject.JsonToLocationObject(getIntent().getStringExtra(MainActivity.LOCATIONOBJECTEXTRA));
+
+        geometries = new ArrayList<>();
+        mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData_MarkerlessFast.xml");
+        mCallbackHandler = new MetaioSDKCallbackHandler(this, history, locationObject);
+        metaioSDK.registerCallback(mCallbackHandler);
+        metaioSDK.setTrackingConfiguration(mTrackingFile);
+    }
 
     @Override
     protected int getGUILayout() {
@@ -53,16 +78,13 @@ public class ARConfiguration extends ARViewActivity{
 
     @Override
     protected void loadContents() {
-        geometries = new ArrayList<>();
-        mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData_MarkerlessFast.xml");
-        mCallbackHandler = new MetaioSDKCallbackHandler();
-        metaioSDK.registerCallback(mCallbackHandler);
-        boolean result = metaioSDK.setTrackingConfiguration(mTrackingFile);
-
-        MetaioDebug.log("Tracking data loaded: " + result);
+        loadGeometry(1, GeometryRotation.UP);
+        loadGeometry(2, GeometryRotation.RIGHT);
+        loadGeometry(3, GeometryRotation.DOWN);
+        loadGeometry(4, GeometryRotation.LEFT);
     }
 
-    private IGeometry loadGeometry(int systemID){
+    private IGeometry loadGeometry(int systemID, GeometryRotation geometryRotation){
         String modelPath = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow.md2");
         if(modelPath != null){
             IGeometry geometry = metaioSDK.createGeometry(modelPath);
@@ -70,6 +92,7 @@ public class ARConfiguration extends ARViewActivity{
                 geometry.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
                 geometry.setVisible(true);
                 geometry.setCoordinateSystemID(systemID);
+                geometry.setRotation(geometryRotation.getRotation());
                 geometries.add(geometry);
                 MetaioDebug.log("Loaded geometry " + modelPath);
                 Log.d("Info", "Loaded geometry " + modelPath);
@@ -93,6 +116,7 @@ public class ARConfiguration extends ARViewActivity{
         mCallbackHandler = null;
     }
 
+    /*
     public void print(View view){
         Log.d(ARConfiguration.class.getSimpleName(), x + " - " + y + " - " + z);
         Log.d("Sendsortyp" , "");
@@ -161,5 +185,5 @@ public class ARConfiguration extends ARViewActivity{
                 geometry.setRotation(new Rotation(x, y, z));
             }
         }
-    }
+    } */
 }
