@@ -1,9 +1,7 @@
 package com.src.sim.metaioapplication.metaio;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -15,10 +13,11 @@ import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
+import com.src.sim.metaioapplication.logic.resource.Tracker;
 import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Simon on 09.04.2015.
@@ -47,23 +46,26 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     private String mTrackingFile;
-    private List<IGeometry> geometries;
+    private Map<Integer, IGeometry> geometryMap;
     private MetaioSDKCallbackHandler mCallbackHandler;
 
     private History history;
     private LocationObject locationObject;
+    private Map<Integer, Tracker> trackerMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(ARConfiguration.class.getSimpleName(), "onCreate");
         super.onCreate(savedInstanceState);
         history = History.JsonToHistory(getIntent().getStringExtra(MainActivity.HISTORYEXTRA));
         locationObject = LocationObject.JsonToLocationObject(getIntent().getStringExtra(MainActivity.LOCATIONOBJECTEXTRA));
 
-        geometries = new ArrayList<>();
         mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData_MarkerlessFast.xml");
-        mCallbackHandler = new MetaioSDKCallbackHandler(this, history, locationObject);
-        metaioSDK.registerCallback(mCallbackHandler);
+        trackerMap = history.getTrackerMap();
+
+        mCallbackHandler = new MetaioSDKCallbackHandler(this, trackerMap, locationObject);
         metaioSDK.setTrackingConfiguration(mTrackingFile);
+        metaioSDK.registerCallback(mCallbackHandler);
     }
 
     @Override
@@ -78,13 +80,18 @@ public class ARConfiguration extends ARViewActivity{
 
     @Override
     protected void loadContents() {
-        loadGeometry(1, GeometryRotation.UP);
-        loadGeometry(2, GeometryRotation.RIGHT);
-        loadGeometry(3, GeometryRotation.DOWN);
-        loadGeometry(4, GeometryRotation.LEFT);
+        geometryMap = new HashMap<>();
+        Log.d(ARConfiguration.class.getSimpleName(), "loadContents");
+        loadGeometries();
     }
 
-    private IGeometry loadGeometry(int systemID, GeometryRotation geometryRotation){
+    protected void loadGeometries(){
+        for(Tracker tracker : trackerMap.values()){
+            loadGeometry(tracker.getId(), GeometryRotation.RIGHT);
+        }
+    }
+
+    protected IGeometry loadGeometry(int systemID, GeometryRotation geometryRotation){
         String modelPath = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow.md2");
         if(modelPath != null){
             IGeometry geometry = metaioSDK.createGeometry(modelPath);
@@ -93,9 +100,9 @@ public class ARConfiguration extends ARViewActivity{
                 geometry.setVisible(true);
                 geometry.setCoordinateSystemID(systemID);
                 geometry.setRotation(geometryRotation.getRotation());
-                geometries.add(geometry);
+                geometryMap.put(systemID, geometry);
                 MetaioDebug.log("Loaded geometry " + modelPath);
-                Log.d("Info", "Loaded geometry " + modelPath);
+                Log.i(ARConfiguration.class.getSimpleName(), "Loaded geometry " + modelPath);
             }else{
                 MetaioDebug.log(Log.ERROR, "Error loading geometry " + modelPath);
             }
@@ -114,6 +121,12 @@ public class ARConfiguration extends ARViewActivity{
         super.onDestroy();
         mCallbackHandler.delete();
         mCallbackHandler = null;
+    }
+
+    protected void updateGeometryRotation(int systemId, GeometryRotation geometryRotation){
+        IGeometry geometry = geometryMap.get(systemId);
+        geometry.setRotation(geometryRotation.getRotation());
+        Log.i(ARConfiguration.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + geometryRotation.name());
     }
 
     /*
