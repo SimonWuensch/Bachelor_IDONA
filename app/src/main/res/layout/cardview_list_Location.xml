@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:longClickable="false">
 
-        <TableLayout android:id="@+id/fOverView_tTableInfo" android:layout_height="wrap_content" android:layout_width="match_parent"
+        <TableLayout android:id="@+id/cvLocation_tlTable" android:layout_height="wrap_content" android:layout_width="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:baselineAligned="true"
@@ -25,43 +25,72 @@
             <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Name"
                     android:id="@+id/cardview_list_location_tvName"
-                    android:layout_marginBottom="1dp" />
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="90dp"
+                    android:gravity="bottom" />
             </TableRow>
 
             <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Street + Number"
                     android:id="@+id/cardview_list_location_tvStreetAndNumber"
-                    android:layout_marginBottom="1dp" />
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="90dp"
+                    android:gravity="left|center" />
             </TableRow>
 
             <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="ZIP"
                     android:id="@+id/cardview_list_location_tvZip"
-                    android:layout_marginBottom="1dp" />
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="90dp"
+                    android:gravity="left|center" />
             </TableRow>
 
             <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Place"
                     android:id="@+id/cardview_list_location_tvPlace"
-                    android:layout_marginBottom="1dp" />
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="90dp"
+                    android:gravity="top" />
             </TableRow>
         </TableLayout>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/icon_house"
+            android:layout_alignTop="@id/cvLocation_tlTable"
+            android:layout_alignLeft="@+id/cvLocation_tlTable"
+            android:layout_alignStart="@+id/cvLocation_tlTable"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="3dp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_alignTop="@id/cvLocation_tlTable"
+            android:layout_alignLeft="@+id/cvLocation_tlTable"
+            android:layout_alignStart="@+id/cvLocation_tlTable"
+            android:layout_alignBottom="@+id/cvLocation_tlTable"
+            android:background="#ffaaa9a9"
+            android:layout_marginLeft="80dp" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

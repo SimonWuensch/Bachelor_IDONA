@@ -9,7 +9,6 @@ import com.metaio.sdk.jni.TrackingValuesVector;
 import com.src.sim.metaioapplication.logic.TrackerAlgo;
 import com.src.sim.metaioapplication.logic.resource.Aim;
 import com.src.sim.metaioapplication.logic.resource.Direction;
-import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
 import com.src.sim.metaioapplication.metaio.ARConfiguration.GeometryRotation;
@@ -73,7 +72,7 @@ public class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
     }
 
     private ARConfiguration.GeometryRotation getGeometryRotation(String directionIcon){
-        ARConfiguration.GeometryRotation geometryRotation = null;
+        ARConfiguration.GeometryRotation geometryRotation;
         if(directionIcon.equals(Direction.FORWARDS)){
             geometryRotation = GeometryRotation.UP;
         }else if(directionIcon.equals(Direction.RIGHT)){

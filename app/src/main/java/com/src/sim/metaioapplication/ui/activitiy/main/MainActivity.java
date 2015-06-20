@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.asynctask.AssetsExtrater;
+import com.src.sim.metaioapplication.asynctask.NetworkCommunikation;
 import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
 import com.src.sim.metaioapplication.listener.CustomListener;
 import com.src.sim.metaioapplication.logic.resource.Aim;
@@ -41,13 +43,15 @@ public class MainActivity extends Activity implements CustomListener{
 
         //new AssetsExtrater().extractAllAssets(this);
         dataBase = new MyDataBaseSQLite(this);
+        //NetworkCommunikation.getLocation(this);
         showFragment(new ListLocationFragment(), LOCATIONFRAGMENT);
     }
 
     public void showFragment(Fragment fragment, String backstack){
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.activity_main_flFragmentContainer, fragment)
+                .replace(R.id.activity_main_flFragmentContainer, fragment, backstack)
+                .addToBackStack(backstack)
                 .commit();
     }
 

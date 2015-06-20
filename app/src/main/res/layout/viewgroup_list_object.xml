@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="#ffe5e5e5">
-
+    android:padding="5dp"
+    android:background="@drawable/rectangle">
 
     <TextView
         android:id="@+id/lblListHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textSize="17dp"
+        android:gravity="center|left"
         android:textColor="#ff000000" />
 
 </LinearLayout>

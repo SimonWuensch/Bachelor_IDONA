@@ -1,13 +1,101 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.src.sim.metaioapplication.ui.fragment.object.ListObjectFragment">
 
-    <ExpandableListView
-        android:id="@+id/lvExpandable"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+    <TableLayout android:id="@+id/fList_Object_tlTable" android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:baselineAligned="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp">
 
-</FrameLayout>
+        <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Name"
+                android:id="@+id/fList_Object_tvName"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="100dp"
+                android:gravity="bottom" />
+        </TableRow>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Street + Number"
+                android:id="@+id/fList_Object_tvStreetAndNumber"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="100dp"
+                android:gravity="left|center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ZIP"
+                android:id="@+id/fList_Object_tvZip"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="100dp"
+                android:gravity="left|center" />
+        </TableRow>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Place"
+                android:id="@+id/fList_Object_tvPlace"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="100dp"
+                android:gravity="top" />
+        </TableRow>
+    </TableLayout>
+
+    <ExpandableListView
+        android:id="@+id/fList_Object_ExpandableListView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/fList_Object_tlTable"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/icon_house"
+        android:layout_alignTop="@id/fList_Object_tlTable"
+        android:layout_alignLeft="@+id/fList_Object_tlTable"
+        android:layout_alignStart="@+id/fList_Object_tlTable"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="17dp" />
+
+    <View
+    android:layout_width="2dp"
+    android:layout_height="fill_parent"
+    android:layout_alignTop="@id/fList_Object_tlTable"
+    android:layout_alignLeft="@+id/fList_Object_tlTable"
+    android:layout_alignStart="@+id/fList_Object_tlTable"
+    android:layout_alignBottom="@+id/fList_Object_tlTable"
+    android:background="#ffaaa9a9"
+    android:layout_marginLeft="90dp" />
+
+</RelativeLayout>

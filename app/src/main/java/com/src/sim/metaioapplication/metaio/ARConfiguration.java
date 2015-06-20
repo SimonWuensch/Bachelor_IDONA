@@ -2,6 +2,7 @@ package com.src.sim.metaioapplication.metaio;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -53,6 +54,7 @@ public class ARConfiguration extends ARViewActivity{
     private LocationObject locationObject;
     private Map<Integer, Tracker> trackerMap;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(ARConfiguration.class.getSimpleName(), "onCreate");
@@ -86,25 +88,25 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     protected void loadGeometries(){
-        for(Tracker tracker : trackerMap.values()){
-            loadGeometry(tracker.getId(), GeometryRotation.RIGHT);
+       for(Tracker tracker : trackerMap.values()){
+           loadGeometry(tracker.getId(), GeometryRotation.RIGHT);
         }
     }
 
     protected IGeometry loadGeometry(int systemID, GeometryRotation geometryRotation){
-        String modelPath = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow.md2");
+        String modelPath = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
         if(modelPath != null){
             IGeometry geometry = metaioSDK.createGeometry(modelPath);
             if(geometry != null){
-                geometry.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
+                geometry.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
                 geometry.setVisible(true);
                 geometry.setCoordinateSystemID(systemID);
                 geometry.setRotation(geometryRotation.getRotation());
                 geometryMap.put(systemID, geometry);
                 MetaioDebug.log("Loaded geometry " + modelPath);
-                Log.i(ARConfiguration.class.getSimpleName(), "Loaded geometry " + modelPath);
+                Log.i(ARConfiguration.class.getSimpleName(), "Loaded geometry [" + systemID + "] - " + modelPath);
             }else{
-                MetaioDebug.log(Log.ERROR, "Error loading geometry " + modelPath);
+                MetaioDebug.log(Log.ERROR, "Error loading geometry [" + systemID + "] - " + modelPath);
             }
             return geometry;
         }
@@ -136,7 +138,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void rotateX(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 x += 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -145,7 +147,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void rotateY(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 y += 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -154,7 +156,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void rotateZ(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 z += 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -163,7 +165,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void minRotateY(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 y -= 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -172,7 +174,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void minRotateX(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 x -= 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -181,7 +183,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void minRotateZ(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 z -= 0.01f;
                 geometry.setRotation(new Rotation(x, y, z));
@@ -190,7 +192,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void zero(View view){
-        for(IGeometry geometry : geometries){
+        for(IGeometry geometry : geometryMap.values()){
             if(geometry.isVisible()){
                 x = 0;
                 y = 0;
