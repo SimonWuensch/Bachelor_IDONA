@@ -6,204 +6,248 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.metaio.sdk.jni.Rotation;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 
 public class Direction {
 
-	public static String LEFTHAND = "lefthand";
-	public static String RIGHTHAND = "righthand";
+    public enum ArrowRotation {
+        DEFAULT(-10.0f, -10.0f, -10.0f),
+        LEFT(0.0f, 0.0f, 3.1599975f),
+        UP(0.0f, 0.0f, 1.5999988f),
+        BACKWARDS(-1.5799989f, -1.419999f, 0.0f),
+        FORWARDS(-1.6199988f, 1.5499989f, 0.0f),
+        RIGHT_UP(0.0f, 0.0f ,0.51999986f),
+        LEFT_UP(0.0f, 0.0f ,2.639998f),
+        RIGHT(0.0f, 0.0f ,0.0f),
+        DOWN(0.0f, 0.0f ,-1.5999988f),
+        RIGHT_DOWN(0.0f, 0.0f ,-0.43999988f),
+        LEFT_DOWN(0.0f, 0.0f ,-2.719998f);
 
-	public static String LEFT = "<-";
-	public static String RIGHT = "->";
-	public static String BACKWARDS = "v";
-	public static String FORWARDS = "^";
+        private float[] rotation = new float[3];
 
-	private String direction;
-	private int distance;
-	private int trackerID;
-	private Map<String, Map<LocationObject, Integer>> locationObjects;
-	Map<Kind, List<LocationObject>> locationObjectMap;
+        private ArrowRotation(float x, float y, float z){
+            rotation = new float[] {x, y, z};
+        }
 
-	public Direction(Tracker tracker, int distance, String direction) {
-		this.direction = direction;
-		this.distance = distance;
-		this.trackerID = tracker.getId();
-		initLocationObjectMap();
-	}
+        public float[] getRotation() {
+            return rotation;
+        }
 
-	public Direction(String direction) {
-		this.direction = direction;
-		initLocationObjectMap();
-	}
+        public void setRotation(float[] rotation) {
+            this.rotation = rotation;
+        }
 
-	public Direction() {
-	}
+        public Rotation getGeometryRotation(){
+            return new Rotation(rotation[0], rotation[1], rotation[2]);
+        }
+    }
 
-	public String getDirection() {
-		return direction;
-	}
+    public static String ARROWNORMAL = "normal";
+    public static String ARROWCURVE = "curve";
 
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
+    public static String LEFTHAND = "lefthand";
+    public static String RIGHTHAND = "righthand";
 
-	public int getDistance() {
-		return distance;
-	}
+    private ArrowRotation rotation;
+    private String arrow;
+    private int distance;
+    private int trackerID;
+    private Map<String, Map<LocationObject, Integer>> locationObjects;
+    Map<Kind, List<LocationObject>> locationObjectMap;
 
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
+    public Direction(Tracker tracker, int distance, ArrowRotation rotation) {
+        this.rotation = rotation;
+        this.distance = distance;
+        this.trackerID = tracker.getId();
+        initLocationObjectMap();
+    }
 
-	public int getTrackerID() {
-		return trackerID;
-	}
+    public Direction(ArrowRotation rotation) {
+        this.rotation = rotation;
+        initLocationObjectMap();
+    }
 
-	public void setTrackerID(int trackerID) {
-		this.trackerID = trackerID;
-	}
+    public Direction() {
+    }
 
-	public Map<String, Map<LocationObject, Integer>> getLocationObjects() {
-		return locationObjects;
-	}
+    public String getArrow() {
+        return arrow == null ? ARROWNORMAL : arrow;
+    }
 
-	public void setLocationObjects(Map<String, Map<LocationObject, Integer>> locationObjects) {
-		this.locationObjects = locationObjects;
-	}
+    public void setArrow(String arrow) {
+        this.arrow = arrow;
+    }
 
-	public Map<Kind, List<LocationObject>> getLocationObjectMap() {
-		return locationObjectMap;
-	}
+    public ArrowRotation getRotation() {
+        return rotation;
+    }
 
-	public void setLocationObjectMap(Map<Kind, List<LocationObject>> locationObjectMap) {
-		this.locationObjectMap = locationObjectMap;
-	}
+    public void setRotation(ArrowRotation rotation) {
+        this.rotation = rotation;
+    }
 
-	private void initLocationObjectMap() {
-		locationObjects = new HashMap<String, Map<LocationObject, Integer>>();
-		locationObjectMap = new HashMap<Kind, List<LocationObject>>();
-		locationObjects.put(LEFTHAND, new HashMap<LocationObject, Integer>());
-		locationObjects.put(RIGHTHAND, new HashMap<LocationObject, Integer>());
-	}
+    public int getDistance() {
+        return distance;
+    }
 
-	public String getHandside(LocationObject object) {
-		for (LocationObject lObjectValue : locationObjects.get(LEFTHAND).keySet()) {
-			if (lObjectValue.getDescription().equals(object.getDescription())) {
-				return LEFTHAND;
-			}
-		}
-		for (LocationObject lObjectValue : locationObjects.get(RIGHTHAND).keySet()) {
-			if (lObjectValue.getDescription().equals(object.getDescription())) {
-				return RIGHTHAND;
-			}
-		}
-		throw new NullPointerException("Direction contains not the LocationObject [" + object.getDescription() + "]");
-	}
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 
-	public int getCountPosition(LocationObject lObject) {
-		Object[] array = locationObjects.get(getHandside(lObject)).entrySet().toArray();
-		Arrays.sort(array, new Comparator<Object>() {
-			public int compare(Object o1, Object o2) {
-				return ((Map.Entry<LocationObject, Integer>) o1).getValue().compareTo(
-						((Map.Entry<LocationObject, Integer>) o2).getValue());
-			}
-		});
-		for (int i = 0; i < array.length; i++) {
-			if (((Map.Entry<LocationObject, Integer>) array[i]).getKey().equals(lObject)) {
-				return i + 1;
-			}
-		}
-		return -1;
-	}
+    public int getTrackerID() {
+        return trackerID;
+    }
 
-	public int getDistanceToLocationObject(LocationObject lObject) {
-		String handSide = getHandside(lObject);
-		for (LocationObject lObjectValue : locationObjects.get(handSide).keySet()) {
-			if (lObjectValue.getDescription().equals(lObject.getDescription())) {
-				return locationObjects.get(handSide).get(lObjectValue);
-			}
-		}
-		throw new NullPointerException("Direction contains not the LocationObject [" + lObject.getDescription() + "]");
-	}
+    public void setTrackerID(int trackerID) {
+        this.trackerID = trackerID;
+    }
 
-	public void setTracker(Tracker startTracker, Tracker endTracker, int distance, String oppositeDirection) {
-		this.trackerID = endTracker.getId();
-		this.distance = distance;
+    public Map<String, Map<LocationObject, Integer>> getLocationObjects() {
+        return locationObjects;
+    }
 
-		Direction endToStartDirection = new Direction(startTracker, distance, oppositeDirection);
+    public void setLocationObjects(Map<String, Map<LocationObject, Integer>> locationObjects) {
+        this.locationObjects = locationObjects;
+    }
 
-		for (LocationObject lObject : locationObjects.get(LEFTHAND).keySet()) {
-			endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(LEFTHAND).get(lObject),
-					RIGHTHAND);
-		}
-		for (LocationObject lObject : locationObjects.get(RIGHTHAND).keySet()) {
-			endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(RIGHTHAND).get(lObject),
-					LEFTHAND);
-		}
+    public Map<Kind, List<LocationObject>> getLocationObjectMap() {
+        return locationObjectMap;
+    }
 
-		endTracker.addDirection(endToStartDirection);
-	}
+    public void setLocationObjectMap(Map<Kind, List<LocationObject>> locationObjectMap) {
+        this.locationObjectMap = locationObjectMap;
+    }
 
-	public boolean hasTracker() {
-		return trackerID > 0 ? true : false;
-	}
+    private void initLocationObjectMap() {
+        locationObjects = new HashMap<String, Map<LocationObject, Integer>>();
+        locationObjectMap = new HashMap<Kind, List<LocationObject>>();
+        locationObjects.put(LEFTHAND, new HashMap<LocationObject, Integer>());
+        locationObjects.put(RIGHTHAND, new HashMap<LocationObject, Integer>());
+    }
 
-	public void addLocationObjectToLeft(LocationObject lObject, int distance) {
-		addLocationObject(lObject, distance, LEFTHAND);
-	}
+    public String getHandside(LocationObject object) {
+        for (LocationObject lObjectValue : locationObjects.get(LEFTHAND).keySet()) {
+            if (lObjectValue.getDescription().equals(object.getDescription())) {
+                return LEFTHAND;
+            }
+        }
+        for (LocationObject lObjectValue : locationObjects.get(RIGHTHAND).keySet()) {
+            if (lObjectValue.getDescription().equals(object.getDescription())) {
+                return RIGHTHAND;
+            }
+        }
+        throw new NullPointerException("Direction contains not the LocationObject [" + object.getDescription() + "]");
+    }
 
-	public void addLocationObjectToRight(LocationObject lObject, int distance) {
-		addLocationObject(lObject, distance, RIGHTHAND);
-	}
+    public int getCountPosition(LocationObject lObject) {
+        Object[] array = locationObjects.get(getHandside(lObject)).entrySet().toArray();
+        Arrays.sort(array, new Comparator<Object>() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<LocationObject, Integer>) o1).getValue().compareTo(
+                        ((Map.Entry<LocationObject, Integer>) o2).getValue());
+            }
+        });
+        for (int i = 0; i < array.length; i++) {
+            if (((Map.Entry<LocationObject, Integer>) array[i]).getKey().equals(lObject)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
 
-	private void addLocationObject(final LocationObject lObject, int distance, String handside) {
-		locationObjects.get(handside).put(lObject, distance);
-		if (!locationObjectMap.containsKey(lObject.getKind())) {
-			locationObjectMap.put(lObject.getKind(), new ArrayList<LocationObject>() {
-				private static final long serialVersionUID = 1L;
-				{
-					add(lObject);
-				}
-			});
-		} else {
-			locationObjectMap.get(lObject.getKind()).add(lObject);
-		}
-	}
+    public int getDistanceToLocationObject(LocationObject lObject) {
+        String handSide = getHandside(lObject);
+        for (LocationObject lObjectValue : locationObjects.get(handSide).keySet()) {
+            if (lObjectValue.getDescription().equals(lObject.getDescription())) {
+                return locationObjects.get(handSide).get(lObjectValue);
+            }
+        }
+        throw new NullPointerException("Direction contains not the LocationObject [" + lObject.getDescription() + "]");
+    }
 
-	// TODO delete
-	public String printLocationObjectList() {
-		StringBuilder builder = new StringBuilder();
+    public void setTracker(Tracker startTracker, Tracker endTracker, int distance, ArrowRotation rotation) {
+        if(endTracker != null){
+            this.trackerID = endTracker.getId();
+            this.distance = distance;
 
-		Map<LocationObject, Integer> leftObjects = locationObjects.get(LEFTHAND);
-		Map<LocationObject, Integer> rightObjects = locationObjects.get(RIGHTHAND);
+            Direction endToStartDirection = new Direction(startTracker, distance, rotation);
 
-		if (!leftObjects.isEmpty() && !rightObjects.isEmpty())
-			builder.append(", ");
+            for (LocationObject lObject : locationObjects.get(LEFTHAND).keySet()) {
+                endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(LEFTHAND).get(lObject),
+                        RIGHTHAND);
+            }
+            for (LocationObject lObject : locationObjects.get(RIGHTHAND).keySet()) {
+                endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(RIGHTHAND).get(lObject),
+                        LEFTHAND);
+            }
 
-		if (!leftObjects.isEmpty())
-			builder.append(" Left: ");
+            endTracker.addDirection(endToStartDirection);
+        }
+    }
 
-		for (LocationObject leftObject : leftObjects.keySet()) {
-			builder.append(leftObject.toString() + " pos: " + getCountPosition(leftObject) + " dis: "
-					+ getDistanceToLocationObject(leftObject));
+    public boolean hasTracker() {
+        return trackerID > 0 ? true : false;
+    }
 
-			if (leftObjects.size() - 1 != getCountPosition(leftObject)) {
-				builder.append(", ");
-			}
-		}
+    public void addLocationObjectToLeft(LocationObject lObject, int distance) {
+        addLocationObject(lObject, distance, LEFTHAND);
+    }
 
-		if (!rightObjects.isEmpty())
-			builder.append(" Right: ");
+    public void addLocationObjectToRight(LocationObject lObject, int distance) {
+        addLocationObject(lObject, distance, RIGHTHAND);
+    }
 
-		for (LocationObject rightObject : rightObjects.keySet()) {
-			builder.append(rightObject.toString() + " pos: " + getCountPosition(rightObject) + " dis: "
-					+ getDistanceToLocationObject(rightObject));
+    private void addLocationObject(final LocationObject lObject, int distance, String handside) {
+        locationObjects.get(handside).put(lObject, distance);
+        if (!locationObjectMap.containsKey(lObject.getKind())) {
+            locationObjectMap.put(lObject.getKind(), new ArrayList<LocationObject>() {
+                private static final long serialVersionUID = 1L;
+                {
+                    add(lObject);
+                }
+            });
+        } else {
+            locationObjectMap.get(lObject.getKind()).add(lObject);
+        }
+    }
 
-			if (rightObjects.size() - 1 != getCountPosition(rightObject)) {
-				builder.append(", ");
-			}
-		}
+    // TODO delete
+    public String printLocationObjectList() {
+        StringBuilder builder = new StringBuilder();
 
-		return builder.toString();
-	}
+        Map<LocationObject, Integer> leftObjects = locationObjects.get(LEFTHAND);
+        Map<LocationObject, Integer> rightObjects = locationObjects.get(RIGHTHAND);
+
+        if (!leftObjects.isEmpty() && !rightObjects.isEmpty())
+            builder.append(", ");
+
+        if (!leftObjects.isEmpty())
+            builder.append(" Left: ");
+
+        for (LocationObject leftObject : leftObjects.keySet()) {
+            builder.append(leftObject.toString() + " pos: " + getCountPosition(leftObject) + " dis: "
+                    + getDistanceToLocationObject(leftObject));
+
+            if (leftObjects.size() - 1 != getCountPosition(leftObject)) {
+                builder.append(", ");
+            }
+        }
+
+        if (!rightObjects.isEmpty())
+            builder.append(" Right: ");
+
+        for (LocationObject rightObject : rightObjects.keySet()) {
+            builder.append(rightObject.toString() + " pos: " + getCountPosition(rightObject) + " dis: "
+                    + getDistanceToLocationObject(rightObject));
+
+            if (rightObjects.size() - 1 != getCountPosition(rightObject)) {
+                builder.append(", ");
+            }
+        }
+
+        return builder.toString();
+    }
 }
+

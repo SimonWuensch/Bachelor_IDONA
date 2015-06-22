@@ -4,23 +4,23 @@ import com.owlike.genson.Genson;
 
 public class LocationObject {
 
-	public enum Kind {
-		ROOM(false), TOILET(false), MEDIKIT(true), FIREDRENCHER(true), EMERGENCYEXIT(true);
+    public enum Kind {
+        ROOM(false), TOILET(false), MEDIKIT(true), FIREDRENCHER(true), EMERGENCYEXIT(true), EXIT(true), STAIRWELL(true), EVELATOR(true);
 
-		private boolean multipleObject;
+        private boolean multipleObject;
 
-		private Kind(boolean isMultipleObject) {
-			this.multipleObject = isMultipleObject;
-		}
+        private Kind(boolean isMultipleObject) {
+            this.multipleObject = isMultipleObject;
+        }
 
-		public boolean isMultipleObject() {
-			return multipleObject;
-		}
-	}
+        public boolean isMultipleObject() {
+            return multipleObject;
+        }
+    }
 
-	public enum ToiletKind {
-		MALE, FEMAIL, HANDICAPPED;
-	}
+    public enum ToiletKind {
+        MALE, FEMAIL, HANDICAPPED;
+    }
 
 	private Kind kind;
 	private String description;

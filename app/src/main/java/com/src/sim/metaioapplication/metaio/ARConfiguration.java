@@ -3,6 +3,7 @@ package com.src.sim.metaioapplication.metaio;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -12,12 +13,15 @@ import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
 import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,35 +29,19 @@ import java.util.Map;
  */
 public class ARConfiguration extends ARViewActivity{
 
-    public enum GeometryRotation{
-        LEFT(0.0f, 0.0f, 3.1599975f),
-        UP(0.0f, 0.0f, 1.5999988f),
-        RIGHT_UP(0.0f, 0.0f ,0.51999986f),
-        LEFT_UP(0.0f, 0.0f ,2.639998f),
-        RIGHT(0.0f, 0.0f ,0.0f),
-        DOWN(0.0f, 0.0f ,-1.5999988f),
-        RIGHT_DOWN(0.0f, 0.0f ,-0.43999988f),
-        LEFT_DOWN(0.0f, 0.0f ,-2.719998f);
-
-        private Rotation rotation;
-
-        private GeometryRotation(float x, float y, float z){
-            rotation = new Rotation(x, y, z);
-        }
-
-        public Rotation getRotation(){
-            return rotation;
-        }
-    }
-
     private String mTrackingFile;
-    private Map<Integer, IGeometry> geometryMap;
+    private Map<Integer, List<IGeometry>> geometryMap;
     private MetaioSDKCallbackHandler mCallbackHandler;
 
     private History history;
     private LocationObject locationObject;
     private Map<Integer, Tracker> trackerMap;
 
+    private int currentTrackerID = -1;
+
+    private float x = 0;
+    private float y = 0;
+    private float z = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,32 +71,43 @@ public class ARConfiguration extends ARViewActivity{
     @Override
     protected void loadContents() {
         geometryMap = new HashMap<>();
-        Log.d(ARConfiguration.class.getSimpleName(), "loadContents");
         loadGeometries();
     }
 
     protected void loadGeometries(){
        for(Tracker tracker : trackerMap.values()){
-           loadGeometry(tracker.getId(), GeometryRotation.RIGHT);
+           loadGeometry(tracker.getId(), Direction.ArrowRotation.DEFAULT);
         }
     }
 
-    protected IGeometry loadGeometry(int systemID, GeometryRotation geometryRotation){
-        String modelPath = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
-        if(modelPath != null){
-            IGeometry geometry = metaioSDK.createGeometry(modelPath);
-            if(geometry != null){
-                geometry.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
-                geometry.setVisible(true);
-                geometry.setCoordinateSystemID(systemID);
-                geometry.setRotation(geometryRotation.getRotation());
-                geometryMap.put(systemID, geometry);
-                MetaioDebug.log("Loaded geometry " + modelPath);
-                Log.i(ARConfiguration.class.getSimpleName(), "Loaded geometry [" + systemID + "] - " + modelPath);
+    protected IGeometry loadGeometry(int systemID, Direction.ArrowRotation arrowRotation){
+        String arrow = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
+        String arrowCurve = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowcurve.md2");
+        if(arrow != null){
+            IGeometry geometryArrow = metaioSDK.createGeometry(arrow);
+            IGeometry geometryArrowCurve = metaioSDK.createGeometry(arrowCurve);
+            if(geometryArrow != null){
+                geometryArrow.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
+                geometryArrow.setVisible(false);
+                geometryArrow.setCoordinateSystemID(systemID);
+                geometryArrow.setRotation(arrowRotation.getGeometryRotation());
+
+                geometryArrowCurve.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
+                geometryArrowCurve.setVisible(false);
+                geometryArrowCurve.setCoordinateSystemID(systemID);
+                geometryArrowCurve.setRotation(arrowRotation.getGeometryRotation());
+
+                List<IGeometry> geometries = new ArrayList<>();
+                geometries.add(geometryArrow);
+                geometries.add(geometryArrowCurve);
+
+                geometryMap.put(systemID, geometries);
+                MetaioDebug.log("Loaded geometry " + arrow);
+                Log.i(ARConfiguration.class.getSimpleName(), "Loaded geometry [" + systemID + "] - " + arrow);
             }else{
-                MetaioDebug.log(Log.ERROR, "Error loading geometry [" + systemID + "] - " + modelPath);
+                MetaioDebug.log(Log.ERROR, "Error loading geometry [" + systemID + "] - " + arrow);
             }
-            return geometry;
+            return geometryArrow;
         }
         return null;
     }
@@ -125,80 +124,82 @@ public class ARConfiguration extends ARViewActivity{
         mCallbackHandler = null;
     }
 
-    protected void updateGeometryRotation(int systemId, GeometryRotation geometryRotation){
-        IGeometry geometry = geometryMap.get(systemId);
-        geometry.setRotation(geometryRotation.getRotation());
-        Log.i(ARConfiguration.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + geometryRotation.name());
+    public void setCurrentTrackerID(int systemID){
+        currentTrackerID = systemID;
     }
 
-    /*
+    public IGeometry getCurrentIGeometry(){
+        List<IGeometry> geometries =  geometryMap.get(currentTrackerID);
+        if(geometries != null)
+            for(IGeometry geometry : geometries){
+                if(geometry.isVisible()) {
+                    return geometry;
+                }
+            }
+        throw new NullPointerException("No visible IGeometry found.");
+    }
+
+    public void updateGeometryRotation(String arrow, int systemId, Direction direction){
+        IGeometry geometry = null;
+        if(arrow.equals(Direction.ARROWNORMAL)){
+            geometry = geometryMap.get(systemId).get(0);
+        }else if(arrow.equals(Direction.ARROWCURVE)){
+            geometry = geometryMap.get(systemId).get(1);
+        }else{
+            throw new NullPointerException("Arrow does not exist! - " + arrow + ".");
+        }
+
+        geometry.setVisible(true);
+        geometry.setRotation(direction.getRotation().getGeometryRotation());
+        Log.i(ARConfiguration.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getRotation().name());
+    }
+
     public void print(View view){
         Log.d(ARConfiguration.class.getSimpleName(), x + " - " + y + " - " + z);
-        Log.d("Sendsortyp" , "");
+        Toast.makeText(this, x + " - " + y + " - " + z, Toast.LENGTH_LONG).show();
     }
 
     public void rotateX(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                x += 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        x += 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateY(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                y += 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        y += 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateZ(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                z += 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        z += 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateY(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                y -= 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        y -= 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateX(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                x -= 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        x -= 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateZ(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                z -= 0.01f;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
+        IGeometry geometry = getCurrentIGeometry();
+        z -= 0.01f;
+        geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void zero(View view){
-        for(IGeometry geometry : geometryMap.values()){
-            if(geometry.isVisible()){
-                x = 0;
-                y = 0;
-                z = 0;
-                geometry.setRotation(new Rotation(x, y, z));
-            }
-        }
-    } */
+        IGeometry geometry = getCurrentIGeometry();
+        x = 0;
+        y = 0;
+        z = 0;
+        geometry.setRotation(new Rotation(x, y, z));
+    }
 }

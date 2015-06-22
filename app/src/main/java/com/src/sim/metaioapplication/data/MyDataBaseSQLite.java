@@ -27,7 +27,7 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
     private static final String TAG = MyDataBaseSQLite.class.getSimpleName();
 
     private static final String DATABASE_NAME = "idona.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String _ID = "id";
     private static final String _LOCATION_JSON = "locationjson";

@@ -53,7 +53,7 @@ public class Tracker {
 	}
 
 	public String getDirectionIconToTracker(Tracker tracker) {
-		return getDirectionToTracker(tracker).getDirection();
+		return getDirectionToTracker(tracker).getRotation().name();
 	}
 
 	public Direction getDirectionToTracker(Tracker tracker) {
