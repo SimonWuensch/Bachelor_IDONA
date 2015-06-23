@@ -10,6 +10,7 @@ import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
+import com.src.sim.metaioapplication.metaio.ARConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +21,18 @@ import java.util.Map;
  */
 public class AdapterObject extends BaseExpandableListAdapter {
 
-    private Activity activity;
+    private ARConfiguration activity;
     private LocationOnly location;
-    private History history;
-    private CustomListener customListener;
     private List<Kind> parentList;
+    private ListObjectFragment listObjectFragment;
 
     private Map<LocationObject.Kind, List<LocationObject>> childrenMap;
 
-    public AdapterObject(Activity activity, LocationOnly location) {
-        this.activity = activity;
+    public AdapterObject(Activity activity, ListObjectFragment listObjectFragment, LocationOnly location, History history) {
+        this.activity = (ARConfiguration)activity;
         this.location = location;
-        this.customListener = (CustomListener)activity;
-        this.history = customListener.getDatabase().getHistory(location);
-
         this.childrenMap = history.getlObjectMap();
+        this.listObjectFragment = listObjectFragment;
         this.parentList = new ArrayList<Kind>(childrenMap.keySet());
     }
 
@@ -53,7 +51,13 @@ public class AdapterObject extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final LocationObject child = (LocationObject)getChild(groupPosition, childPosition);
         View view = ViewHolderChildren.assignData(activity, child, convertView);
-        view.setOnClickListener(customListener.handleLocationObjectClick(history, child));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.handleLocationObjectClick(child);
+                listObjectFragment.updateTextViewObjects(child);
+            }
+        });
         return view;
     }
 

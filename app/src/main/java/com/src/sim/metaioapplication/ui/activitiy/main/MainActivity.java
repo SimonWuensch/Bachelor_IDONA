@@ -28,13 +28,13 @@ public class MainActivity extends Activity implements CustomListener{
     public static String LOCATIONFRAGMENT = "fragmentlocationlist";
     public static String OBJECTFRAGMENT = "fragmentobject";
 
-    public static String HISTORYEXTRA = "historyextra";
-    public static String LOCATIONOBJECTEXTRA = "locationobjectextra";
+
+    public static String HISTORYEXTRA = "historyExtra";
+    public static String LOCATIONONLYEXTRA = "locationOnlyExtra";
+    public static String LOCATIONONLYIDEXTRA = "locationOnlyID";
 
     private Intent arItent;
     private MyDataBaseSQLite dataBase;
-
-    private Aim aim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,35 +78,19 @@ public class MainActivity extends Activity implements CustomListener{
 
     @Override
     public View.OnClickListener handleCardLocationClick(final LocationOnly location){
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                showFragment(ListObjectFragment.newInstance(location), OBJECTFRAGMENT);
-            }
-        };
-    }
-
-    @Override
-    public View.OnClickListener handleLocationObjectClick(final History history, final LocationObject locationObject){
         final Activity activity = this;
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, locationObject.getDescription() + " ", Toast.LENGTH_LONG).show();
-                aim = new Aim();
-                aim.setlObject(locationObject);
+                //showFragment(ListObjectFragment.newInstance(location), OBJECTFRAGMENT);
+                if(arItent == null)
+                    arItent = new Intent(activity, ARConfiguration.class);
 
-                Intent intent = new Intent(activity, ARConfiguration.class);
-                intent.putExtra(HISTORYEXTRA, history.toJson());
-                intent.putExtra(LOCATIONOBJECTEXTRA, locationObject.toJson());
-                startActivity(intent);
+                arItent.putExtra(HISTORYEXTRA, dataBase.getHistory(location).toJson());
+                arItent.putExtra(LOCATIONONLYEXTRA, location.toJson());
+                arItent.putExtra(LOCATIONONLYIDEXTRA, Long.toString(location.getId()));
+                startActivity(arItent);
             }
         };
-    }
-
-    @Override
-    public void startNavigation(int trackerId){
-        if(!aim.hasTracker()){
-        }
     }
 }

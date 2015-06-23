@@ -1,23 +1,34 @@
 package com.src.sim.metaioapplication.metaio;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
+import com.metaio.sdk.jni.IGeometryVector;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
+import com.src.sim.metaioapplication.logic.resource.Aim;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
+import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
 import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
+import com.src.sim.metaioapplication.ui.fragment.object.ListObjectFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +42,11 @@ public class ARConfiguration extends ARViewActivity{
 
     private String mTrackingFile;
     private Map<Integer, List<IGeometry>> geometryMap;
-    private MetaioSDKCallbackHandler mCallbackHandler;
+    private CallBackHandler mCallbackHandler;
 
+    private MyDataBaseSQLite dataBase;
+
+    private LocationOnly location;
     private History history;
     private LocationObject locationObject;
     private Map<Integer, Tracker> trackerMap;
@@ -45,17 +59,29 @@ public class ARConfiguration extends ARViewActivity{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(ARConfiguration.class.getSimpleName(), "onCreate");
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.ar_view);
+
+        dataBase = new MyDataBaseSQLite(this);
+        location = LocationOnly.JsonToLocationOnly(getIntent().getStringExtra(MainActivity.LOCATIONONLYEXTRA));
+        location.setId(Long.parseLong(getIntent().getStringExtra(MainActivity.LOCATIONONLYIDEXTRA)));
         history = History.JsonToHistory(getIntent().getStringExtra(MainActivity.HISTORYEXTRA));
-        locationObject = LocationObject.JsonToLocationObject(getIntent().getStringExtra(MainActivity.LOCATIONOBJECTEXTRA));
 
         mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData_MarkerlessFast.xml");
         trackerMap = history.getTrackerMap();
-
-        mCallbackHandler = new MetaioSDKCallbackHandler(this, trackerMap, locationObject);
         metaioSDK.setTrackingConfiguration(mTrackingFile);
-        metaioSDK.registerCallback(mCallbackHandler);
+
+    }
+
+    public void showFragment(final Fragment fragment){
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_ar_flFragmentContainer, fragment)
+                .commit();
+    }
+
+    public void handleLocationObjectClick(final LocationObject locationObject){
+        mCallbackHandler.updateLocationObject(locationObject);
     }
 
     @Override
@@ -71,11 +97,16 @@ public class ARConfiguration extends ARViewActivity{
     @Override
     protected void loadContents() {
         geometryMap = new HashMap<>();
+        showFragment(ListObjectFragment.newInstance(location, history));
         loadGeometries();
+
+        mCallbackHandler = new CallBackHandler(trackerMap, geometryMap);
+        metaioSDK.registerCallback(mCallbackHandler);
     }
 
     protected void loadGeometries(){
-       for(Tracker tracker : trackerMap.values()){
+        IGeometryVector vector = metaioSDK.getLoadedGeometries();
+        for(Tracker tracker : trackerMap.values()){
            loadGeometry(tracker.getId(), Direction.ArrowRotation.DEFAULT);
         }
     }
@@ -124,79 +155,49 @@ public class ARConfiguration extends ARViewActivity{
         mCallbackHandler = null;
     }
 
-    public void setCurrentTrackerID(int systemID){
-        currentTrackerID = systemID;
-    }
-
-    public IGeometry getCurrentIGeometry(){
-        List<IGeometry> geometries =  geometryMap.get(currentTrackerID);
-        if(geometries != null)
-            for(IGeometry geometry : geometries){
-                if(geometry.isVisible()) {
-                    return geometry;
-                }
-            }
-        throw new NullPointerException("No visible IGeometry found.");
-    }
-
-    public void updateGeometryRotation(String arrow, int systemId, Direction direction){
-        IGeometry geometry = null;
-        if(arrow.equals(Direction.ARROWNORMAL)){
-            geometry = geometryMap.get(systemId).get(0);
-        }else if(arrow.equals(Direction.ARROWCURVE)){
-            geometry = geometryMap.get(systemId).get(1);
-        }else{
-            throw new NullPointerException("Arrow does not exist! - " + arrow + ".");
-        }
-
-        geometry.setVisible(true);
-        geometry.setRotation(direction.getRotation().getGeometryRotation());
-        Log.i(ARConfiguration.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getRotation().name());
-    }
-
     public void print(View view){
         Log.d(ARConfiguration.class.getSimpleName(), x + " - " + y + " - " + z);
         Toast.makeText(this, x + " - " + y + " - " + z, Toast.LENGTH_LONG).show();
     }
 
     public void rotateX(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         x += 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateY(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         y += 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateZ(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         z += 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateY(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         y -= 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateX(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         x -= 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateZ(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         z -= 0.01f;
         geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void zero(View view){
-        IGeometry geometry = getCurrentIGeometry();
+        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
         x = 0;
         y = 0;
         z = 0;

@@ -5,15 +5,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
     </LinearLayout>
 
-    <Button
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/activity_ar_flFragmentContainer"/>
+
+   <!-- <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="rotateX"
@@ -89,6 +94,6 @@
         android:onClick="print"
         android:layout_above="@+id/buttonMinZ"
         android:layout_alignRight="@+id/buttonMinZ"
-        android:layout_alignEnd="@+id/buttonMinZ" />
+        android:layout_alignEnd="@+id/buttonMinZ" /> -->
 
 </RelativeLayout>

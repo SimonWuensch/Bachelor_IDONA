@@ -15,7 +15,4 @@ public interface CustomListener  {
 
     MyDataBaseSQLite getDatabase();
     View.OnClickListener handleCardLocationClick(final LocationOnly location);
-    View.OnClickListener handleLocationObjectClick(final History history, final LocationObject locationObject);
-    public void startNavigation(int trackerId);
-
 }
