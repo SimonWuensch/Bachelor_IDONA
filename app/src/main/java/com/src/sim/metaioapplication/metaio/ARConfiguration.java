@@ -1,6 +1,7 @@
 package com.src.sim.metaioapplication.metaio;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -110,8 +111,9 @@ public class ARConfiguration extends ARViewActivity{
                 geometryArrowCurve.setRotation(arrowRotation.getGeometryRotation());
 
                 List<IGeometry> geometries = new ArrayList<>();
-                geometries.add(geometryArrow);
+
                 geometries.add(geometryArrowCurve);
+                geometries.add(geometryArrow);
 
                 geometryMap.put(systemID, geometries);
                 MetaioDebug.log("Loaded geometry " + arrow);
@@ -138,51 +140,126 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void print(View view){
-        Log.d(ARConfiguration.class.getSimpleName(), x + " - " + y + " - " + z);
-        Toast.makeText(this, x + " - " + y + " - " + z, Toast.LENGTH_LONG).show();
+        Log.d(ARConfiguration.class.getSimpleName(), x + "f, " + y + "f, " + z + "f");
     }
 
     public void rotateX(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         x += 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateY(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         y += 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void rotateZ(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         z += 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateY(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
+
         y -= 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateX(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         x -= 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
     public void minRotateZ(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         z -= 0.01f;
-        geometry.setRotation(new Rotation(x, y, z));
+        if(geometry != null)
+            geometry.setRotation(new Rotation(x, y, z));
     }
 
+    int count = 1;
     public void zero(View view){
-        IGeometry geometry = mCallbackHandler.getCurrentIGeometry();
-        x = 0;
-        y = 0;
-        z = 0;
-        geometry.setRotation(new Rotation(x, y, z));
+        IGeometry geometry = null;
+        try{
+            geometry = mCallbackHandler.getCurrentIGeometry();
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
+
+        Direction.ArrowRotation arrowRotation = null;
+        if(count == 1){
+            arrowRotation= Direction.ArrowRotation.RIGHT_BACKWARDS;
+        }else if(count == 2){
+            arrowRotation= Direction.ArrowRotation.LEFT_BACKWARDS;
+        }else if(count == 3){
+            arrowRotation= Direction.ArrowRotation.RIGHT_FORWARDS;
+        }else if(count == 4){
+            arrowRotation= Direction.ArrowRotation.LEFT_FORWARDS;
+        }else if(count == 5){
+            arrowRotation= Direction.ArrowRotation.FORWARDS_LEFT;
+        }else if(count == 6){
+            arrowRotation= Direction.ArrowRotation.FORWARDS_RIGHT;
+        }else if(count == 7){
+            arrowRotation= Direction.ArrowRotation.BACKWARDS_LEFT;
+        }else if(count == 8){
+            arrowRotation= Direction.ArrowRotation.BACKWARDS_RIGHT;
+        }
+
+        if(geometry != null){count++;
+            if(count == 9){
+                count = 1;
+            }
+            final String arrow = arrowRotation.name();
+            ARConfiguration.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(ARConfiguration.this, "ArrorRotation: " + arrow, Toast.LENGTH_LONG).show();
+                }
+            });
+            x = arrowRotation.getRotation()[0];
+            y = arrowRotation.getRotation()[1];
+            z = arrowRotation.getRotation()[2];
+            geometry.setRotation(arrowRotation.getGeometryRotation());
+        }
+
     }
 }

@@ -31,7 +31,6 @@ public class LocationObject {
 	}
 
 	public LocationObject() {
-
 	}
 
     public String toJson() {

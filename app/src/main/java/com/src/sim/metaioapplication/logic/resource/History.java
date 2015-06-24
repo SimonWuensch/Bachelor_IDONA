@@ -791,7 +791,7 @@ public class History {
 
     private LocationObject initLocationObjectMultiple(Kind kind) throws Exception {
         if (kind.isMultipleObject())
-            return LocationObject.newMultipleLocationObject(kind);
+            return initLocationObject(kind, kind.name());
         else
             throw new Exception("location object cannot be initialized. It is not a multiple kind.");
     }

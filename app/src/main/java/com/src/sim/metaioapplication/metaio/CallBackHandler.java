@@ -53,10 +53,10 @@ public class CallBackHandler extends IMetaioSDKCallback {
              int systemId = value.getCoordinateSystemID();
              Log.d(CallBackHandler.class.getSimpleName(), "Got Tracker with id " + systemId);
 
-             currentTrackerID = systemId;
              Tracker tracker = trackerMap.get(systemId);
 
              if(tracker != null ) {
+                 currentTrackerID = systemId;
                  if(!idList.contains(systemId)) {
                      Log.d(CallBackHandler.class.getSimpleName(), "ID is not in IDList " + systemId);
                      WayAlgorithm.calculateWay(this, new TrackerAlgo(trackerMap), tracker, locationObject);
@@ -70,12 +70,16 @@ public class CallBackHandler extends IMetaioSDKCallback {
          isFirstStart = false;
     }
 
-    public void updateGeometryRotation(String arrow, int systemId, Direction direction){
+    public void updateGeometryRotation(int systemId, Direction direction){
         IGeometry geometry;
+        String arrow = direction.getRotation().getArrow();
+
         if(arrow.equals(Direction.ARROWNORMAL)){
             geometry = geometryMap.get(systemId).get(0);
+            geometryMap.get(systemId).get(1).setVisible(false);
         }else if(arrow.equals(Direction.ARROWCURVE)){
             geometry = geometryMap.get(systemId).get(1);
+            geometryMap.get(systemId).get(0).setVisible(false);
         }else{
             throw new NullPointerException("Arrow does not exist! - " + arrow + ".");
         }

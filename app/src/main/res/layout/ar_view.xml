@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/activity_ar_flFragmentContainer"/>
 
-   <!-- <Button
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="rotateX"
@@ -26,7 +26,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/button2" />
+        android:id="@+id/button2"
+        android:layout_marginBottom="100dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/button3" />
+        android:id="@+id/button3"
+        android:layout_marginBottom="100dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
         android:onClick="rotateY"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -94,6 +97,6 @@
         android:onClick="print"
         android:layout_above="@+id/buttonMinZ"
         android:layout_alignRight="@+id/buttonMinZ"
-        android:layout_alignEnd="@+id/buttonMinZ" /> -->
+        android:layout_alignEnd="@+id/buttonMinZ" />
 
 </RelativeLayout>

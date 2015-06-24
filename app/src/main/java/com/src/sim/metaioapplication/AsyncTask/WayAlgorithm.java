@@ -84,7 +84,7 @@ public class WayAlgorithm extends AsyncTask<Integer, Integer, Map<Tracker, Direc
         for(Tracker tracker : trackerDirectionMap.keySet()){
             Direction direction = trackerDirectionMap.get(tracker);
             Log.d(WayAlgorithm.class.getSimpleName(), "Update Rotation from IGeometry with id " + tracker.getId());
-            callbackHandler.updateGeometryRotation(direction.getArrow(), tracker.getId(), direction);
+            callbackHandler.updateGeometryRotation(tracker.getId(), direction);
         }
     }
 }
