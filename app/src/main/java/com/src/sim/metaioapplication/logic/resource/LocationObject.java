@@ -19,7 +19,7 @@ public class LocationObject {
     }
 
     public enum ToiletKind {
-        MALE, FEMAIL, HANDICAPPED;
+        MALE, FEMAIL, HANDICAPPED
     }
 
 	private Kind kind;

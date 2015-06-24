@@ -8,9 +8,6 @@ import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 
-/**
- * Created by Simon on 17.06.2015.
- */
 public interface CustomListener  {
 
     MyDataBaseSQLite getDatabase();

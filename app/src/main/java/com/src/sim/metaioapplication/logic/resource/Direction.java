@@ -150,8 +150,29 @@ public class Direction {
             }
         });
         for (int i = 0; i < array.length; i++) {
-            if (((Map.Entry<LocationObject, Integer>) array[i]).getKey().equals(lObject)) {
+            if (((Map.Entry<LocationObject, Integer>) array[i]).getKey().getDescription().equals(lObject.getDescription())) {
                 return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public int getCountPositionRoom(LocationObject lObject) {
+        Object[] array = locationObjects.get(getHandside(lObject)).entrySet().toArray();
+        Arrays.sort(array, new Comparator<Object>() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<LocationObject, Integer>) o1).getValue().compareTo(
+                        ((Map.Entry<LocationObject, Integer>) o2).getValue());
+            }
+        });
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            Kind kind = ((Map.Entry<LocationObject, Integer>) array[i]).getKey().getKind();
+            if(kind.equals(Kind.ROOM) || kind.equals(Kind.TOILET) || kind.equals(Kind.STAIRWELL) || kind.equals(Kind.EMERGENCYEXIT) || kind.equals(Kind.EXIT)){
+                count++;
+            }
+            if (((Map.Entry<LocationObject, Integer>) array[i]).getKey().getDescription().equals(lObject.getDescription())) {
+                return count;
             }
         }
         return -1;
@@ -167,6 +188,22 @@ public class Direction {
         throw new NullPointerException("Direction contains not the LocationObject [" + lObject.getDescription() + "]");
     }
 
+    public String getWayDescriptionToLocationObject(LocationObject lObject){
+        int position = getCountPositionRoom(lObject);
+        String handSide = getHandside(lObject);
+        return "The destination is located on the " + handSide + " side " + position + getNumberCall(position) + " door.";
+    }
+
+    private String getNumberCall(int number){
+        if(number == 1){
+            return "st ";
+        }else if(number == 2){
+            return "nd ";
+        }else if(number == 3){
+            return "rd ";
+        }else return "th";
+    }
+
     public void setTracker(Tracker startTracker, Tracker endTracker, int distance, ArrowRotation rotation) {
         if(endTracker != null){
             this.trackerID = endTracker.getId();
@@ -178,17 +215,16 @@ public class Direction {
                 endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(LEFTHAND).get(lObject),
                         RIGHTHAND);
             }
-            for (LocationObject lObject : locationObjects.get(RIGHTHAND).keySet()) {
+            for (LocationObject lObject : locationObjects.get(RIGHTHAND).keySet())
                 endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(RIGHTHAND).get(lObject),
                         LEFTHAND);
-            }
 
             endTracker.addDirection(endToStartDirection);
         }
     }
 
     public boolean hasTracker() {
-        return trackerID > 0 ? true : false;
+        return trackerID > 0;
     }
 
     public void addLocationObjectToLeft(LocationObject lObject, int distance) {

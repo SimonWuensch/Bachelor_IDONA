@@ -19,7 +19,7 @@ public class ListObjectFragment extends Fragment {
     private static final String LOCATIONJSON = "locationJson";
     private static final String LOCATIONID = "locationid";
 
-    private TextView tvLocationName, tvLocationStreetAndNumber, tvLocationZip, tvLocationPlace, tvObjects;
+    private TextView tvLocationName, tvLocationStreetAndNumber, tvLocationZip, tvObjects;
     private ExpandableListView expListView;
 
     private LocationOnly location;
@@ -68,15 +68,14 @@ public class ListObjectFragment extends Fragment {
         tvObjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(expListView.getVisibility() == View.GONE);
-                toggleListVistible();
+                    toggleListVisible();
             }
         });
 
         return rootView;
     }
 
-    private void toggleListVistible(){
+    private void toggleListVisible(){
         if(expListView.getVisibility() == View.GONE) {
             expListView.setVisibility(View.VISIBLE);
         }else{
@@ -85,7 +84,7 @@ public class ListObjectFragment extends Fragment {
     }
 
     protected void updateTextViewObjects(LocationObject locationObject){
-        toggleListVistible();
+        toggleListVisible();
         tvObjects.setText(locationObject.toString());
     }
 

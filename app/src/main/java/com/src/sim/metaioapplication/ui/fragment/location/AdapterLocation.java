@@ -2,17 +2,13 @@ package com.src.sim.metaioapplication.ui.fragment.location;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
 import com.src.sim.metaioapplication.listener.CustomListener;
-import com.src.sim.metaioapplication.logic.resource.Location;
 
 import java.util.List;
 
@@ -33,8 +29,7 @@ public class AdapterLocation extends  RecyclerView.Adapter<ViewHolderLocation> {
     @Override
     public ViewHolderLocation onCreateViewHolder(ViewGroup viewGroup, int position) {
         inflatedView = LayoutInflater.from(viewGroup.getContext()).inflate(layout, viewGroup, false);
-        ViewHolderLocation viewHolder = new ViewHolderLocation(inflatedView);
-        return viewHolder;
+        return new ViewHolderLocation(inflatedView);
     }
 
     @Override

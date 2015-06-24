@@ -1,16 +1,16 @@
 package com.src.sim.metaioapplication.metaio;
 
 
+import android.app.Activity;
 import android.util.Log;
-
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.src.sim.metaioapplication.asynctask.WayAlgorithm;
+import com.src.sim.metaioapplication.dialog.DialogManager;
 import com.src.sim.metaioapplication.logic.TrackerAlgo;
 import com.src.sim.metaioapplication.logic.resource.Direction;
-import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
 
@@ -19,25 +19,30 @@ import java.util.List;
 import java.util.Map;
 
 public class CallBackHandler extends IMetaioSDKCallback {
+
+    private Activity activity;
+
     private List<Integer> idList;
     private Map<Integer, List<IGeometry>> geometryMap;
     private Map<Integer, Tracker> trackerMap;
 
     private int currentTrackerID;
     private LocationObject locationObject;
-    private TrackerAlgo trackerAlgo;
     private boolean isFirstStart = true;
+    private DialogManager dialogManager = null;
 
-    public CallBackHandler(Map<Integer, Tracker> trackerMap, Map<Integer, List<IGeometry>> geometryMap){
+    public CallBackHandler(Activity activity, Map<Integer, Tracker> trackerMap, Map<Integer, List<IGeometry>> geometryMap){
         this.geometryMap = geometryMap;
         this.trackerMap = trackerMap;
-        this.trackerAlgo = new TrackerAlgo(trackerMap);
         this.idList = new ArrayList<Integer>();
+        this.activity = activity;
+        this.dialogManager = new DialogManager(activity);
     }
 
     public void updateLocationObject(LocationObject locationObject){
         Log.d(CallBackHandler.class.getSimpleName(), "LocationObject changened to " + locationObject.toString());
         this.locationObject = locationObject;
+        this.dialogManager = new DialogManager(activity);
         resetIDList();
     }
 
@@ -49,17 +54,24 @@ public class CallBackHandler extends IMetaioSDKCallback {
              Log.d(CallBackHandler.class.getSimpleName(), "Got Tracker with id " + systemId);
 
              currentTrackerID = systemId;
-             Tracker startTracker = trackerMap.get(systemId);
-             if(startTracker != null && !idList.contains(systemId)) {
-                 Log.d(CallBackHandler.class.getSimpleName(), "ID is not in IDList " + systemId);
-                 WayAlgorithm.calculateWay(this, trackerAlgo, startTracker, locationObject);
+             Tracker tracker = trackerMap.get(systemId);
+
+             if(tracker != null ) {
+                 if(!idList.contains(systemId)) {
+                     Log.d(CallBackHandler.class.getSimpleName(), "ID is not in IDList " + systemId);
+                     WayAlgorithm.calculateWay(this, new TrackerAlgo(trackerMap), tracker, locationObject);
+                 }
+                 Direction direction = tracker.getDirectionToLocationObject(locationObject);
+                 if(tracker.getDirectionToLocationObject(locationObject) != null){
+                     dialogManager.aimFoundDialog(direction, locationObject);
+                 }
              }
          }
          isFirstStart = false;
     }
 
     public void updateGeometryRotation(String arrow, int systemId, Direction direction){
-        IGeometry geometry = null;
+        IGeometry geometry;
         if(arrow.equals(Direction.ARROWNORMAL)){
             geometry = geometryMap.get(systemId).get(0);
         }else if(arrow.equals(Direction.ARROWCURVE)){

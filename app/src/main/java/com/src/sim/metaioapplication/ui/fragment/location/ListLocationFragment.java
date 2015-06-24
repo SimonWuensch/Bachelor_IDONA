@@ -5,17 +5,13 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.src.sim.metaioapplication.R;
-import com.src.sim.metaioapplication.listener.CustomListener;
 
 public class ListLocationFragment extends Fragment {
 
-    private CustomListener customListener;
     private View rootView;
 
     @Override
@@ -26,7 +22,6 @@ public class ListLocationFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        customListener = (CustomListener) activity;
     }
 
     @Override

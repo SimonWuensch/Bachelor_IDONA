@@ -54,9 +54,14 @@ public class TrackerAlgo {
 
 	private static List<Tracker> findAimTracker(Collection<Tracker> trackerCollaction, LocationObject lObject) {
 		List<Tracker> aimTrackers = new ArrayList<Tracker>();
+        int distanceToLObject = -1;
 		for (Tracker tracker : trackerCollaction) {
 			if (tracker.getDirectionToLocationObject(lObject) != null) {
-				aimTrackers.add(tracker);
+                int distance = tracker.getDirectionToLocationObject(lObject).getDistanceToLocationObject(lObject);
+                if(distanceToLObject == -1 || distance <= distanceToLObject) {
+                    aimTrackers.add(tracker);
+                    distanceToLObject = distance;
+                }
 			}
 		}
 		return aimTrackers;
@@ -127,7 +132,7 @@ public class TrackerAlgo {
 				newWays.add(way);
 			}
 		}
-		return ways = new ArrayList<List<Tracker>>(newWays);
+		return new ArrayList<List<Tracker>>(newWays);
 	}
 
 	private static int getMinDistance(List<List<Tracker>> ways) {

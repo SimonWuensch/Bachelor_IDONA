@@ -1,11 +1,9 @@
 package com.src.sim.metaioapplication.ui.fragment.location;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.src.sim.metaioapplication.R;
-import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 
 public class ViewHolderLocation extends RecyclerView.ViewHolder {

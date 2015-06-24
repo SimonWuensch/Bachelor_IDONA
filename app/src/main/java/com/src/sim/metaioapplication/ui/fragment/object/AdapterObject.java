@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
-import com.src.sim.metaioapplication.listener.CustomListener;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
@@ -16,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Simon on 18.06.2015.
- */
 public class AdapterObject extends BaseExpandableListAdapter {
 
     private ARConfiguration activity;
