@@ -20,8 +20,8 @@ public class Direction {
         UP(ARROWNORMAL, 0.0f, 0.0f, 1.5999988f),
         DOWN(ARROWNORMAL, 0.0f, 0.0f ,-1.5999988f),
 
-        FORWARDS(ARROWNORMAL, 0.0f, 0.0f, 1.5999988f),
-        BACKWARDS(ARROWNORMAL, 0.0f, 0.0f, 3.1599975f),
+        FORWARDS(ARROWNORMAL, 0.0f, 1.459999f, 1.5999988f),
+        BACKWARDS(ARROWNORMAL, 0.0f, -1.5599989f, -1.5999988f),
 
         RIGHT_UP(ARROWNORMAL, 0.0f, 0.0f ,0.51999986f),
         LEFT_UP(ARROWNORMAL, 0.0f, 0.0f ,2.639998f),
@@ -69,6 +69,7 @@ public class Direction {
 
     public static String ARROWNORMAL = "normal";
     public static String ARROWCURVE = "curve";
+    public static String ARROWTURN = "turn";
 
     public static String LEFTHAND = "lefthand";
     public static String RIGHTHAND = "righthand";
@@ -204,18 +205,19 @@ public class Direction {
 
     public String getWayDescriptionToLocationObject(LocationObject lObject){
         int position = getCountPositionRoom(lObject);
-        String handSide = getHandside(lObject);
-        return "The destination is located on the " + handSide + " side " + position + getNumberCall(position) + " door.";
+        String positionString = getNumberCall(position);
+        String handSide = getHandside(lObject).equals(Direction.LEFTHAND) ? "LEFT" : "RIGHT";
+        return handSide + " - " + positionString + " door.";
     }
 
     private String getNumberCall(int number){
         if(number == 1){
-            return "st ";
+            return number + "st ";
         }else if(number == 2){
-            return "nd ";
+            return number + "nd ";
         }else if(number == 3){
-            return "rd ";
-        }else return "th";
+            return number + "rd ";
+        }else return number + "th";
     }
 
     public void setTracker(Tracker startTracker, Tracker endTracker, int distance, ArrowRotation rotation) {

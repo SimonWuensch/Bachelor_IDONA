@@ -96,9 +96,11 @@ public class ARConfiguration extends ARViewActivity{
     protected IGeometry loadGeometry(int systemID, Direction.ArrowRotation arrowRotation){
         String arrow = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
         String arrowCurve = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowcurve.md2");
+        String arrowTurn = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowturn.md2");
         if(arrow != null){
             IGeometry geometryArrow = metaioSDK.createGeometry(arrow);
             IGeometry geometryArrowCurve = metaioSDK.createGeometry(arrowCurve);
+            IGeometry geometryArrowTurn = metaioSDK.createGeometry(arrowTurn);
             if(geometryArrow != null && geometryArrowCurve != null){
                 geometryArrow.setScale(new Vector3d(0.05f, 0.05f, 0.05f));
                 geometryArrow.setVisible(false);
@@ -110,10 +112,15 @@ public class ARConfiguration extends ARViewActivity{
                 geometryArrowCurve.setCoordinateSystemID(systemID);
                 geometryArrowCurve.setRotation(arrowRotation.getGeometryRotation());
 
-                List<IGeometry> geometries = new ArrayList<>();
+                geometryArrowTurn.setScale(new Vector3d(0.05f, 0.05f, 0.05f));
+                geometryArrowTurn.setVisible(false);
+                geometryArrowTurn.setCoordinateSystemID(systemID);
+                geometryArrowTurn.setRotation(arrowRotation.getGeometryRotation());
 
-                geometries.add(geometryArrowCurve);
+                List<IGeometry> geometries = new ArrayList<>();
                 geometries.add(geometryArrow);
+                geometries.add(geometryArrowCurve);
+                geometries.add(geometryArrowTurn);
 
                 geometryMap.put(systemID, geometries);
                 MetaioDebug.log("Loaded geometry " + arrow);
@@ -242,10 +249,30 @@ public class ARConfiguration extends ARViewActivity{
             arrowRotation= Direction.ArrowRotation.BACKWARDS_LEFT;
         }else if(count == 8){
             arrowRotation= Direction.ArrowRotation.BACKWARDS_RIGHT;
+        }else if(count == 9){
+            arrowRotation= Direction.ArrowRotation.LEFT;
+        }else if(count == 10){
+            arrowRotation= Direction.ArrowRotation.RIGHT;
+        }else if(count == 11){
+            arrowRotation= Direction.ArrowRotation.FORWARDS;
+        }else if(count == 12){
+            arrowRotation= Direction.ArrowRotation.BACKWARDS;
+        }else if(count == 13){
+            arrowRotation= Direction.ArrowRotation.LEFT_UP;
+        }else if(count == 14){
+            arrowRotation= Direction.ArrowRotation.LEFT_DOWN;
+        }else if(count == 15){
+            arrowRotation= Direction.ArrowRotation.RIGHT_UP;
+        }else if(count == 16){
+            arrowRotation= Direction.ArrowRotation.RIGHT_DOWN;
+        }else if(count == 17){
+            arrowRotation= Direction.ArrowRotation.UP;
+        }else if(count == 18){
+            arrowRotation= Direction.ArrowRotation.DOWN;
         }
 
         if(geometry != null){count++;
-            if(count == 9){
+            if(count == 19){
                 count = 1;
             }
             final String arrow = arrowRotation.name();

@@ -18,85 +18,85 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/activity_ar_flFragmentContainer"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="rotateX"
-        android:text="X"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button2"
-        android:layout_marginBottom="100dp" />
+    <!--<Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="rotateX"
+         android:text="X"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentStart="true"
+         android:id="@+id/button2"
+         android:layout_marginBottom="100dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="rotateZ"
-        android:text="Z"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button3"
-        android:layout_marginBottom="100dp" />
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="rotateZ"
+         android:text="Z"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true"
+         android:id="@+id/button3"
+         android:layout_marginBottom="100dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Y"
-        android:onClick="rotateY"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp" />
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Y"
+         android:onClick="rotateY"
+         android:id="@+id/button"
+         android:layout_alignParentBottom="true"
+         android:layout_centerHorizontal="true"
+         android:layout_marginBottom="100dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="minRotateX"
-        android:text="-X"
-        android:layout_above="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="minRotateX"
+         android:text="-X"
+         android:layout_above="@+id/button2"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentStart="true"/>
 
-    <Button
-        android:id="@+id/buttonMinZ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="minRotateZ"
-        android:text="-Z"
-        android:layout_above="@+id/button3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+     <Button
+         android:id="@+id/buttonMinZ"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="minRotateZ"
+         android:text="-Z"
+         android:layout_above="@+id/button3"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:id="@+id/buttonMinY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-Y"
-        android:onClick="minRotateY"
-        android:layout_above="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+     <Button
+         android:id="@+id/buttonMinY"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="-Y"
+         android:onClick="minRotateY"
+         android:layout_above="@+id/button"
+         android:layout_alignLeft="@+id/button"
+         android:layout_alignStart="@+id/button" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:id="@+id/button4"
-        android:onClick="zero"
-        android:layout_above="@+id/buttonMinY"
-        android:layout_alignRight="@+id/buttonMinY"
-        android:layout_alignEnd="@+id/buttonMinY" />
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="0"
+         android:id="@+id/button4"
+         android:onClick="zero"
+         android:layout_above="@+id/buttonMinY"
+         android:layout_alignRight="@+id/buttonMinY"
+         android:layout_alignEnd="@+id/buttonMinY" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="print"
-        android:id="@+id/button5"
-        android:onClick="print"
-        android:layout_above="@+id/buttonMinZ"
-        android:layout_alignRight="@+id/buttonMinZ"
-        android:layout_alignEnd="@+id/buttonMinZ" />
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="print"
+         android:id="@+id/button5"
+         android:onClick="print"
+         android:layout_above="@+id/buttonMinZ"
+         android:layout_alignRight="@+id/buttonMinZ"
+         android:layout_alignEnd="@+id/buttonMinZ" />-->
 
 </RelativeLayout>

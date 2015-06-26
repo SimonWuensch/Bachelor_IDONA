@@ -77,9 +77,15 @@ public class CallBackHandler extends IMetaioSDKCallback {
         if(arrow.equals(Direction.ARROWNORMAL)){
             geometry = geometryMap.get(systemId).get(0);
             geometryMap.get(systemId).get(1).setVisible(false);
+            geometryMap.get(systemId).get(2).setVisible(false);
         }else if(arrow.equals(Direction.ARROWCURVE)){
             geometry = geometryMap.get(systemId).get(1);
             geometryMap.get(systemId).get(0).setVisible(false);
+            geometryMap.get(systemId).get(2).setVisible(false);
+        }else if(arrow.equals(Direction.ARROWTURN)){
+            geometry = geometryMap.get(systemId).get(2);
+            geometryMap.get(systemId).get(0).setVisible(false);
+            geometryMap.get(systemId).get(1).setVisible(false);
         }else{
             throw new NullPointerException("Arrow does not exist! - " + arrow + ".");
         }

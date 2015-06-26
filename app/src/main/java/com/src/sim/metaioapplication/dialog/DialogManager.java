@@ -9,6 +9,9 @@ import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.metaio.ARConfiguration;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class DialogManager {
 
     private Activity activity;

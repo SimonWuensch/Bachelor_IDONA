@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.asynctask.AssetsExtrater;
+import com.src.sim.metaioapplication.asynctask.NetworkCommunikation;
 import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
 import com.src.sim.metaioapplication.dialog.DialogManager;
 import com.src.sim.metaioapplication.listener.CustomListener;
