@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
-import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
+import com.src.sim.metaioapplication.ui.activitiy.start.StartMenuActivity;
 import com.src.sim.metaioapplication.listener.CustomListener;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class AdapterLocation extends  RecyclerView.Adapter<ViewHolderLocation> {
 
 
     public AdapterLocation(int layout, Activity activity){
-        this.locationList = ((MainActivity)activity).getDatabase().getLocationList();
+        this.locationList = ((StartMenuActivity)activity).getDatabase().getLocationList();
 
         this.layout = layout;
         this.customListener = (CustomListener) activity;

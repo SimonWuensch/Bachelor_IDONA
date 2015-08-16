@@ -13,6 +13,7 @@ import com.src.sim.metaioapplication.logic.TrackerAlgo;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
+import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class CallBackHandler extends IMetaioSDKCallback {
 
         geometry.setVisible(true);
         geometry.setRotation(direction.getRotation().getGeometryRotation());
-        Log.d(ARConfiguration.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getRotation().name());
+        Log.d(ARNavigationActivity.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getRotation().name());
     }
 
     public IGeometry getCurrentIGeometry(){

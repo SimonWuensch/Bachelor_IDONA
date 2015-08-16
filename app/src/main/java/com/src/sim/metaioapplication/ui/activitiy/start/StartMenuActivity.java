@@ -1,11 +1,10 @@
-package com.src.sim.metaioapplication.ui.activitiy.main;
+package com.src.sim.metaioapplication.ui.activitiy.start;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.src.sim.metaioapplication.R;
@@ -15,10 +14,10 @@ import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
 import com.src.sim.metaioapplication.dialog.DialogManager;
 import com.src.sim.metaioapplication.listener.CustomListener;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
-import com.src.sim.metaioapplication.metaio.ARConfiguration;
+import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 import com.src.sim.metaioapplication.ui.fragment.location.ListLocationFragment;
 
-public class MainActivity extends Activity implements CustomListener{
+public class StartMenuActivity extends Activity implements CustomListener{
 
     public static String LOCATIONFRAGMENT = "fragmentlocationlist";
     public static String HISTORYEXTRA = "historyExtra";
@@ -32,11 +31,9 @@ public class MainActivity extends Activity implements CustomListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //new AssetsExtrater().extractAllAssets(this);
+        new AssetsExtrater().extractAllAssets(this);
         dataBase = new MyDataBaseSQLite(this);
-        dialogManager = new DialogManager(MainActivity.this);
-        //NetworkCommunikation.getLocation(this);
+        dialogManager = new DialogManager(StartMenuActivity.this);
         showFragment(new ListLocationFragment(), LOCATIONFRAGMENT);
     }
 
@@ -60,12 +57,6 @@ public class MainActivity extends Activity implements CustomListener{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onPostResume() {
         super.onPostResume();
         dialogManager.toggleLoading(false);
@@ -81,15 +72,18 @@ public class MainActivity extends Activity implements CustomListener{
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 dialogManager.toggleLoading(true);
-
-                Intent arIntent = new Intent(MainActivity.this, ARConfiguration.class);
+                Intent arIntent = new Intent(StartMenuActivity.this, ARNavigationActivity.class);
                 arIntent.putExtra(HISTORYEXTRA, dataBase.getHistory(location).toJson());
                 arIntent.putExtra(LOCATIONONLYEXTRA, location.toJson());
                 arIntent.putExtra(LOCATIONONLYIDEXTRA, Long.toString(location.getId()));
                 startActivity(arIntent);
             }
         };
+    }
+
+    public void handleAddLocation (View view){
+        new AssetsExtrater().extractAllAssets(this);
+        NetworkCommunikation.getLocation(this);
     }
 }

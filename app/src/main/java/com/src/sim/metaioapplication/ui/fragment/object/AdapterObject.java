@@ -9,7 +9,7 @@ import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
-import com.src.sim.metaioapplication.metaio.ARConfiguration;
+import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class AdapterObject extends BaseExpandableListAdapter {
 
-    private ARConfiguration activity;
+    private ARNavigationActivity activity;
     private LocationOnly location;
     private List<Kind> parentList;
     private ListObjectFragment listObjectFragment;
@@ -25,7 +25,7 @@ public class AdapterObject extends BaseExpandableListAdapter {
     private Map<LocationObject.Kind, List<LocationObject>> childrenMap;
 
     public AdapterObject(Activity activity, ListObjectFragment listObjectFragment, LocationOnly location, History history) {
-        this.activity = (ARConfiguration)activity;
+        this.activity = (ARNavigationActivity)activity;
         this.location = location;
         this.childrenMap = history.getlObjectMap();
         this.listObjectFragment = listObjectFragment;

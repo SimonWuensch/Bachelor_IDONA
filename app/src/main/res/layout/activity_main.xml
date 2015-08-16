@@ -8,6 +8,44 @@
     <FrameLayout
         android:id="@+id/activity_main_flFragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome        to IDONA"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:textSize="50dp"
+        android:layout_marginRight="100dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_main_ivIconIdona"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView"
+        android:src="@drawable/icon_idona"
+        android:layout_marginLeft="-100dp"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/activity_main_ivIconAdd"
+        android:src="@drawable/icon_add"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:onClick="handleAddLocation" />
+
 
 </RelativeLayout>

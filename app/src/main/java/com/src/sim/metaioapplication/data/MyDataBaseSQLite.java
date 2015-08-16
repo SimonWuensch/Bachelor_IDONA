@@ -169,7 +169,7 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteLocation(Location location){
+    public void deleteLocation(LocationOnly location){
         if(locationHistoryMap != null){
             locationHistoryMap.remove(location);
         }
@@ -181,7 +181,7 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
         }catch(SQLiteException e){
             Log.e(TAG, "DELETE ERROR: ", e);
         }finally{
-            Log.d(TAG, "DELETE: " + location.getLocationOnly().toJson());
+            Log.d(TAG, "DELETE: " + location.toJson());
         }
     }
 

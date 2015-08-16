@@ -1,7 +1,6 @@
-package com.src.sim.metaioapplication.metaio;
+package com.src.sim.metaioapplication.ui.activitiy.navigation;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +19,8 @@ import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
-import com.src.sim.metaioapplication.ui.activitiy.main.MainActivity;
+import com.src.sim.metaioapplication.metaio.CallBackHandler;
+import com.src.sim.metaioapplication.ui.activitiy.start.StartMenuActivity;
 import com.src.sim.metaioapplication.ui.fragment.object.ListObjectFragment;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ARConfiguration extends ARViewActivity{
+public class ARNavigationActivity extends ARViewActivity{
 
     private Map<Integer, List<IGeometry>> geometryMap;
     private CallBackHandler mCallbackHandler;
@@ -41,17 +41,18 @@ public class ARConfiguration extends ARViewActivity{
     private float y = 0;
     private float z = 0;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ar_view);
         getActionBar().hide();
 
-        location = LocationOnly.JsonToLocationOnly(getIntent().getStringExtra(MainActivity.LOCATIONONLYEXTRA));
-        location.setId(Long.parseLong(getIntent().getStringExtra(MainActivity.LOCATIONONLYIDEXTRA)));
-        history = History.JsonToHistory(getIntent().getStringExtra(MainActivity.HISTORYEXTRA));
+        location = LocationOnly.JsonToLocationOnly(getIntent().getStringExtra(StartMenuActivity.LOCATIONONLYEXTRA));
+        location.setId(Long.parseLong(getIntent().getStringExtra(StartMenuActivity.LOCATIONONLYIDEXTRA)));
+        history = History.JsonToHistory(getIntent().getStringExtra(StartMenuActivity.HISTORYEXTRA));
 
-        String mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData_MarkerlessFast.xml");
+        String mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData.xml");
         trackerMap = history.getTrackerMap();
         metaioSDK.setTrackingConfiguration(mTrackingFile);
     }
@@ -74,7 +75,7 @@ public class ARConfiguration extends ARViewActivity{
 
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
-        return null;
+        return mCallbackHandler;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class ARConfiguration extends ARViewActivity{
         showFragment(ListObjectFragment.newInstance(location, history));
         loadGeometries();
 
-        mCallbackHandler = new CallBackHandler(ARConfiguration.this, trackerMap, geometryMap);
+        mCallbackHandler = new CallBackHandler(ARNavigationActivity.this, trackerMap, geometryMap);
         metaioSDK.registerCallback(mCallbackHandler);
     }
 
@@ -102,6 +103,7 @@ public class ARConfiguration extends ARViewActivity{
             IGeometry geometryArrowCurve = metaioSDK.createGeometry(arrowCurve);
             IGeometry geometryArrowTurn = metaioSDK.createGeometry(arrowTurn);
             if(geometryArrow != null && geometryArrowCurve != null){
+
                 geometryArrow.setScale(new Vector3d(0.05f, 0.05f, 0.05f));
                 geometryArrow.setVisible(false);
                 geometryArrow.setCoordinateSystemID(systemID);
@@ -124,9 +126,9 @@ public class ARConfiguration extends ARViewActivity{
 
                 geometryMap.put(systemID, geometries);
                 MetaioDebug.log("Loaded geometry " + arrow);
-                Log.d(ARConfiguration.class.getSimpleName(), "Loaded geometry [" + systemID + "] - " + arrow);
+                Log.d(ARNavigationActivity.class.getSimpleName(), "Loaded geometry [" + systemID + "] - " + arrow);
             }else{
-                Log.i(ARConfiguration.class.getSimpleName(), "Error loading geometry [" + systemID + "] - " + arrow);
+                Log.i(ARNavigationActivity.class.getSimpleName(), "Error loading geometry [" + systemID + "] - " + arrow);
                 MetaioDebug.log(Log.ERROR, "Error loading geometry [" + systemID + "] - " + arrow);
             }
             return geometryArrow;
@@ -147,7 +149,7 @@ public class ARConfiguration extends ARViewActivity{
     }
 
     public void print(View view){
-        Log.d(ARConfiguration.class.getSimpleName(), x + "f, " + y + "f, " + z + "f");
+        Log.d(ARNavigationActivity.class.getSimpleName(), x + "f, " + y + "f, " + z + "f");
     }
 
     public void rotateX(View view){
@@ -276,10 +278,10 @@ public class ARConfiguration extends ARViewActivity{
                 count = 1;
             }
             final String arrow = arrowRotation.name();
-            ARConfiguration.this.runOnUiThread(new Runnable() {
+            ARNavigationActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(ARConfiguration.this, "ArrorRotation: " + arrow, Toast.LENGTH_LONG).show();
+                    Toast.makeText(ARNavigationActivity.this, "ArrorRotation: " + arrow, Toast.LENGTH_LONG).show();
                 }
             });
             x = arrowRotation.getRotation()[0];
