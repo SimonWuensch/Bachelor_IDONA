@@ -9,7 +9,7 @@ import com.owlike.genson.Genson;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.ToiletKind;
-import com.src.sim.metaioapplication.logic.resource.Direction.Arrow;
+import com.src.sim.metaioapplication.logic.resource.Arrow;
 
 public class History {
 

@@ -14,6 +14,7 @@ import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
+import com.src.sim.metaioapplication.logic.resource.Arrow;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.Location;
@@ -85,11 +86,11 @@ public class ARNavigationActivity extends ARViewActivity{
 
     protected void loadGeometries(){
         for(Tracker tracker : trackerMap.values()){
-           loadGeometry(tracker.getId(), Direction.Arrow.DEFAULT);
+           loadGeometry(tracker.getId(), Arrow.DEFAULT);
         }
     }
 
-    protected IGeometry loadGeometry(int systemID, Direction.Arrow arrowRotation){
+    protected IGeometry loadGeometry(int systemID, Arrow arrowRotation){
         String arrow = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
         String arrowCurve = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowcurve.md2");
         String arrowTurn = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowturn.md2");

@@ -5,7 +5,14 @@ import com.owlike.genson.Genson;
 public class LocationObject {
 
     public enum Kind {
-        ROOM(false), TOILET(false), MEDIKIT(true), FIREDRENCHER(true), EMERGENCYEXIT(true), EXIT(true), STAIRWELL(true), EVELATOR(true);
+        ROOM(false),
+        TOILET(false),
+        MEDIKIT(true),
+        FIREDRENCHER(true),
+        EMERGENCYEXIT(true),
+        EXIT(true),
+        STAIRWELL(true),
+        EVELATOR(true);
 
         private boolean multipleObject;
 
