@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.src.sim.metaioapplication.R;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
+import com.src.sim.metaioapplication.logic.resource.Location;
 
 public class ViewHolderLocation extends RecyclerView.ViewHolder {
 
@@ -18,7 +18,7 @@ public class ViewHolderLocation extends RecyclerView.ViewHolder {
         tvPlace = (TextView) itemView.findViewById(R.id.cardview_list_location_tvPlace);
     }
 
-    public void assignData(final LocationOnly location){
+    public void assignData(final Location location){
         tvName.setText(location.getName());
         tvStreetAndNumber.setText(location.getStreet() + " " + location.getNumber());
         tvZip.setText(location.getZip());

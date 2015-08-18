@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
 import com.src.sim.metaioapplication.logic.resource.History;
+import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import java.util.Map;
 public class AdapterObject extends BaseExpandableListAdapter {
 
     private ARNavigationActivity activity;
-    private LocationOnly location;
+    private Location location;
     private List<Kind> parentList;
     private ListObjectFragment listObjectFragment;
 
     private Map<LocationObject.Kind, List<LocationObject>> childrenMap;
 
-    public AdapterObject(Activity activity, ListObjectFragment listObjectFragment, LocationOnly location, History history) {
+    public AdapterObject(Activity activity, ListObjectFragment listObjectFragment, Location location, History history) {
         this.activity = (ARNavigationActivity)activity;
         this.location = location;
         this.childrenMap = history.getlObjectMap();

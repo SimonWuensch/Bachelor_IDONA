@@ -73,7 +73,7 @@ public class CallBackHandler extends IMetaioSDKCallback {
 
     public void updateGeometryRotation(int systemId, Direction direction){
         IGeometry geometry;
-        String arrow = direction.getRotation().getArrow();
+        String arrow = direction.getArrow().getArrow();
 
         if(arrow.equals(Direction.ARROWNORMAL)){
             geometry = geometryMap.get(systemId).get(0);
@@ -92,8 +92,8 @@ public class CallBackHandler extends IMetaioSDKCallback {
         }
 
         geometry.setVisible(true);
-        geometry.setRotation(direction.getRotation().getGeometryRotation());
-        Log.d(ARNavigationActivity.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getRotation().name());
+        geometry.setRotation(direction.getArrow().getGeometryRotation());
+        Log.d(ARNavigationActivity.class.getSimpleName(), "Geometry [" + systemId + "] set to Rotation " + direction.getArrow().name());
     }
 
     public IGeometry getCurrentIGeometry(){

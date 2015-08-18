@@ -6,14 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
+import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.ui.activitiy.start.StartMenuActivity;
 import com.src.sim.metaioapplication.listener.CustomListener;
 
 import java.util.List;
 
 public class AdapterLocation extends  RecyclerView.Adapter<ViewHolderLocation> {
-    private final List<LocationOnly> locationList;
+    private final List<Location> locationList;
     private final int layout;
     private View inflatedView;
     private CustomListener customListener;

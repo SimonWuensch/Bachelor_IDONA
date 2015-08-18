@@ -16,8 +16,8 @@ import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.History;
+import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 import com.src.sim.metaioapplication.logic.resource.Tracker;
 import com.src.sim.metaioapplication.metaio.CallBackHandler;
 import com.src.sim.metaioapplication.ui.activitiy.start.StartMenuActivity;
@@ -33,7 +33,7 @@ public class ARNavigationActivity extends ARViewActivity{
     private Map<Integer, List<IGeometry>> geometryMap;
     private CallBackHandler mCallbackHandler;
 
-    private LocationOnly location;
+    private Location location;
     private History history;
     private Map<Integer, Tracker> trackerMap;
 
@@ -48,7 +48,7 @@ public class ARNavigationActivity extends ARViewActivity{
         setContentView(R.layout.ar_view);
         getActionBar().hide();
 
-        location = LocationOnly.JsonToLocationOnly(getIntent().getStringExtra(StartMenuActivity.LOCATIONONLYEXTRA));
+        location = Location.JsonToLocation(getIntent().getStringExtra(StartMenuActivity.LOCATIONONLYEXTRA));
         location.setId(Long.parseLong(getIntent().getStringExtra(StartMenuActivity.LOCATIONONLYIDEXTRA)));
         history = History.JsonToHistory(getIntent().getStringExtra(StartMenuActivity.HISTORYEXTRA));
 
@@ -90,11 +90,11 @@ public class ARNavigationActivity extends ARViewActivity{
 
     protected void loadGeometries(){
         for(Tracker tracker : trackerMap.values()){
-           loadGeometry(tracker.getId(), Direction.ArrowRotation.DEFAULT);
+           loadGeometry(tracker.getId(), Direction.Arrow.DEFAULT);
         }
     }
 
-    protected IGeometry loadGeometry(int systemID, Direction.ArrowRotation arrowRotation){
+    protected IGeometry loadGeometry(int systemID, Direction.Arrow arrowRotation){
         String arrow = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrow.md2");
         String arrowCurve = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowcurve.md2");
         String arrowTurn = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/arrow/arrowturn.md2");
@@ -234,43 +234,43 @@ public class ARNavigationActivity extends ARViewActivity{
             t.printStackTrace();
         }
 
-        Direction.ArrowRotation arrowRotation = null;
+        Direction.Arrow arrowRotation = null;
         if(count == 1){
-            arrowRotation= Direction.ArrowRotation.RIGHT_BACKWARDS;
+            arrowRotation= Direction.Arrow.RIGHT_BACKWARDS;
         }else if(count == 2){
-            arrowRotation= Direction.ArrowRotation.LEFT_BACKWARDS;
+            arrowRotation= Direction.Arrow.LEFT_BACKWARDS;
         }else if(count == 3){
-            arrowRotation= Direction.ArrowRotation.RIGHT_FORWARDS;
+            arrowRotation= Direction.Arrow.RIGHT_FORWARDS;
         }else if(count == 4){
-            arrowRotation= Direction.ArrowRotation.LEFT_FORWARDS;
+            arrowRotation= Direction.Arrow.LEFT_FORWARDS;
         }else if(count == 5){
-            arrowRotation= Direction.ArrowRotation.FORWARDS_LEFT;
+            arrowRotation= Direction.Arrow.FORWARDS_LEFT;
         }else if(count == 6){
-            arrowRotation= Direction.ArrowRotation.FORWARDS_RIGHT;
+            arrowRotation= Direction.Arrow.FORWARDS_RIGHT;
         }else if(count == 7){
-            arrowRotation= Direction.ArrowRotation.BACKWARDS_LEFT;
+            arrowRotation= Direction.Arrow.BACKWARDS_LEFT;
         }else if(count == 8){
-            arrowRotation= Direction.ArrowRotation.BACKWARDS_RIGHT;
+            arrowRotation= Direction.Arrow.BACKWARDS_RIGHT;
         }else if(count == 9){
-            arrowRotation= Direction.ArrowRotation.LEFT;
+            arrowRotation= Direction.Arrow.LEFT;
         }else if(count == 10){
-            arrowRotation= Direction.ArrowRotation.RIGHT;
+            arrowRotation= Direction.Arrow.RIGHT;
         }else if(count == 11){
-            arrowRotation= Direction.ArrowRotation.FORWARDS;
+            arrowRotation= Direction.Arrow.FORWARDS;
         }else if(count == 12){
-            arrowRotation= Direction.ArrowRotation.BACKWARDS;
+            arrowRotation= Direction.Arrow.BACKWARDS;
         }else if(count == 13){
-            arrowRotation= Direction.ArrowRotation.LEFT_UP;
+            arrowRotation= Direction.Arrow.LEFT_UP;
         }else if(count == 14){
-            arrowRotation= Direction.ArrowRotation.LEFT_DOWN;
+            arrowRotation= Direction.Arrow.LEFT_DOWN;
         }else if(count == 15){
-            arrowRotation= Direction.ArrowRotation.RIGHT_UP;
+            arrowRotation= Direction.Arrow.RIGHT_UP;
         }else if(count == 16){
-            arrowRotation= Direction.ArrowRotation.RIGHT_DOWN;
+            arrowRotation= Direction.Arrow.RIGHT_DOWN;
         }else if(count == 17){
-            arrowRotation= Direction.ArrowRotation.UP;
+            arrowRotation= Direction.Arrow.UP;
         }else if(count == 18){
-            arrowRotation= Direction.ArrowRotation.DOWN;
+            arrowRotation= Direction.Arrow.DOWN;
         }
 
         if(geometry != null){count++;

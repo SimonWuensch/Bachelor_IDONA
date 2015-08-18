@@ -13,7 +13,7 @@ import com.src.sim.metaioapplication.asynctask.NetworkCommunikation;
 import com.src.sim.metaioapplication.data.MyDataBaseSQLite;
 import com.src.sim.metaioapplication.dialog.DialogManager;
 import com.src.sim.metaioapplication.listener.CustomListener;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
+import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 import com.src.sim.metaioapplication.ui.fragment.location.ListLocationFragment;
 
@@ -31,7 +31,6 @@ public class StartMenuActivity extends Activity implements CustomListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new AssetsExtrater().extractAllAssets(this);
         dataBase = new MyDataBaseSQLite(this);
         dialogManager = new DialogManager(StartMenuActivity.this);
         showFragment(new ListLocationFragment(), LOCATIONFRAGMENT);
@@ -68,7 +67,7 @@ public class StartMenuActivity extends Activity implements CustomListener{
     }
 
     @Override
-    public View.OnClickListener handleCardLocationClick(final LocationOnly location){
+    public View.OnClickListener handleCardLocationClick(final Location location){
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {

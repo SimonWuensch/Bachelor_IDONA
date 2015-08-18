@@ -9,7 +9,7 @@ import com.owlike.genson.Genson;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 import com.src.sim.metaioapplication.logic.resource.LocationObject.ToiletKind;
-import com.src.sim.metaioapplication.logic.resource.Direction.ArrowRotation;
+import com.src.sim.metaioapplication.logic.resource.Direction.Arrow;
 
 public class History {
 
@@ -71,7 +71,7 @@ public class History {
 
 
         //Floor - 0
-        addDirectionToTracker(1, ArrowRotation.LEFT,//
+        addDirectionToTracker(1, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -85,7 +85,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(1, 2, 30, ArrowRotation.RIGHT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(1, 2, 30, Direction.Arrow.RIGHT, Direction.Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -103,7 +103,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(2, 26, 30, ArrowRotation.LEFT_UP, ArrowRotation.RIGHT_DOWN,//
+        addDirectionToTracker(2, 26, 30, Arrow.LEFT_UP, Arrow.RIGHT_DOWN,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -116,7 +116,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(1, 38, 8, ArrowRotation.LEFT, ArrowRotation.LEFT,//
+        addDirectionToTracker(1, 38, 8, Arrow.LEFT, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -130,7 +130,7 @@ public class History {
                 });
 
 
-        addDirectionToTracker(2, 3, 30, ArrowRotation.LEFT, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(2, 3, 30, Direction.Arrow.LEFT, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -143,7 +143,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(3, ArrowRotation.RIGHT, //
+        addDirectionToTracker(3, Arrow.RIGHT, //
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -157,7 +157,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(3, 4, 45, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(3, 4, 45, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -177,7 +177,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(4, 5, 15, ArrowRotation.BACKWARDS, ArrowRotation.LEFT,//
+        addDirectionToTracker(4, 5, 15, Arrow.BACKWARDS, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -190,7 +190,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(4, 37, 10, ArrowRotation.FORWARDS, ArrowRotation.RIGHT,//
+        addDirectionToTracker(4, 37, 10, Arrow.FORWARDS, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -203,7 +203,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(4, 6, 47, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(4, 6, 47, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -228,7 +228,7 @@ public class History {
                 });
 
 
-        addDirectionToTracker(6, 8, 50, ArrowRotation.LEFT, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(6, 8, 50, Arrow.LEFT, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -250,7 +250,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, 36, 15, ArrowRotation.RIGHT, ArrowRotation.LEFT,//
+        addDirectionToTracker(8, 36, 15, Arrow.RIGHT, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -263,7 +263,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, ArrowRotation.RIGHT,//
+        addDirectionToTracker(8, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -277,7 +277,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, ArrowRotation.FORWARDS,//
+        addDirectionToTracker(8, Arrow.FORWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -295,7 +295,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, 11, 25, ArrowRotation.UP, ArrowRotation.DOWN,//
+        addDirectionToTracker(8, 11, 25, Arrow.UP, Arrow.DOWN,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -308,7 +308,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, 9, 50, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(8, 9, 50, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -332,7 +332,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(9, ArrowRotation.LEFT,//
+        addDirectionToTracker(9, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -347,7 +347,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(9, 35, 8, ArrowRotation.BACKWARDS, ArrowRotation.LEFT,//
+        addDirectionToTracker(9, 35, 8, Arrow.BACKWARDS, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -362,7 +362,7 @@ public class History {
 
         //Florr - 1
 
-        addDirectionToTracker(42, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(42, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -376,7 +376,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(14, 42, 10, ArrowRotation.RIGHT, ArrowRotation.FORWARDS,//
+        addDirectionToTracker(14, 42, 10, Arrow.RIGHT, Arrow.FORWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     //LEFT - LocationObject, Distance
@@ -482,7 +482,7 @@ public class History {
     }
 
     public void initTrackers() throws Exception {
-        addDirectionToTracker(1, 2, 6, ArrowRotation.LEFT, ArrowRotation.LEFT,//
+        addDirectionToTracker(1, 2, 6, Arrow.LEFT, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -499,7 +499,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(1, 6, 8, ArrowRotation.RIGHT, ArrowRotation.LEFT,//
+        addDirectionToTracker(1, 6, 8, Arrow.RIGHT, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -515,10 +515,10 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(1, 9, 4, ArrowRotation.BACKWARDS, ArrowRotation.BACKWARDS,
+        addDirectionToTracker(1, 9, 4, Arrow.BACKWARDS, Arrow.BACKWARDS,
                 new HashMap<LocationObject, Integer>(), new HashMap<LocationObject, Integer>());
 
-        addDirectionToTracker(2, ArrowRotation.BACKWARDS, //
+        addDirectionToTracker(2, Arrow.BACKWARDS, //
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -533,10 +533,10 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(2, 3, 2, ArrowRotation.RIGHT, ArrowRotation.RIGHT, new HashMap<LocationObject, Integer>(),
+        addDirectionToTracker(2, 3, 2, Arrow.RIGHT, Arrow.RIGHT, new HashMap<LocationObject, Integer>(),
                 new HashMap<LocationObject, Integer>());
 
-        addDirectionToTracker(3, 5, 8, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(3, 5, 8, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -551,7 +551,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(3, 10, 5, ArrowRotation.BACKWARDS, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(3, 10, 5, Arrow.BACKWARDS, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -565,7 +565,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(3, 11, 4, ArrowRotation.BACKWARDS, ArrowRotation.FORWARDS,//
+        addDirectionToTracker(3, 11, 4, Arrow.BACKWARDS, Arrow.FORWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -579,10 +579,10 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(4, 9, 2, ArrowRotation.RIGHT, ArrowRotation.RIGHT, new HashMap<LocationObject, Integer>(),
+        addDirectionToTracker(4, 9, 2, Arrow.RIGHT, Arrow.RIGHT, new HashMap<LocationObject, Integer>(),
                 new HashMap<LocationObject, Integer>());
 
-        addDirectionToTracker(4, 10, 5, ArrowRotation.LEFT, ArrowRotation.LEFT,//
+        addDirectionToTracker(4, 10, 5, Arrow.LEFT, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -599,7 +599,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(4, 7, 5, ArrowRotation.BACKWARDS, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(4, 7, 5, Arrow.BACKWARDS, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -613,7 +613,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(5, 11, 3, ArrowRotation.BACKWARDS, ArrowRotation.LEFT,//
+        addDirectionToTracker(5, 11, 3, Arrow.BACKWARDS, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -627,7 +627,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(5, 8, 9, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(5, 8, 9, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -642,7 +642,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(6, 9, 4, ArrowRotation.BACKWARDS, ArrowRotation.LEFT,//
+        addDirectionToTracker(6, 9, 4, Arrow.BACKWARDS, Arrow.LEFT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -657,7 +657,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(6, 7, 11, ArrowRotation.RIGHT, ArrowRotation.LEFT, new HashMap<LocationObject, Integer>() {
+        addDirectionToTracker(6, 7, 11, Arrow.RIGHT, Arrow.LEFT, new HashMap<LocationObject, Integer>() {
             private static final long serialVersionUID = 1L;
             {
                 put(initLocationObjectMultiple(Kind.EMERGENCYEXIT), 9);
@@ -669,7 +669,7 @@ public class History {
             }
         });
 
-        addDirectionToTracker(8, 7, 6, ArrowRotation.LEFT, ArrowRotation.RIGHT,//
+        addDirectionToTracker(8, 7, 6, Arrow.LEFT, Arrow.RIGHT,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -684,7 +684,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(8, 10, 5, ArrowRotation.BACKWARDS, ArrowRotation.FORWARDS,//
+        addDirectionToTracker(8, 10, 5, Arrow.BACKWARDS, Arrow.FORWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -698,7 +698,7 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(11, 8, 6, ArrowRotation.BACKWARDS, ArrowRotation.BACKWARDS,//
+        addDirectionToTracker(11, 8, 6, Arrow.BACKWARDS, Arrow.BACKWARDS,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
 
@@ -712,17 +712,17 @@ public class History {
                     }
                 });
 
-        addDirectionToTracker(11, 10, 2, ArrowRotation.RIGHT, ArrowRotation.RIGHT, new HashMap<LocationObject, Integer>(),
+        addDirectionToTracker(11, 10, 2, Arrow.RIGHT, Arrow.RIGHT, new HashMap<LocationObject, Integer>(),
                 new HashMap<LocationObject, Integer>());
     }
 
-    private Direction addDirectionToTracker(int startTrackerID, ArrowRotation startToEnd,
+    private Direction addDirectionToTracker(int startTrackerID, Arrow startToEnd,
                                             Map<LocationObject, Integer> leftObjectMap, Map<LocationObject, Integer> rightObjectMap) {
-        return addDirectionToTracker(startTrackerID, -1, 0, startToEnd, ArrowRotation.RIGHT, leftObjectMap, rightObjectMap);
+        return addDirectionToTracker(startTrackerID, -1, 0, startToEnd, Arrow.RIGHT, leftObjectMap, rightObjectMap);
     }
 
     private Direction addFloor(int startTrackerID, int endTrackerID, int distance) {
-        return addDirectionToTracker(startTrackerID, endTrackerID, distance, ArrowRotation.UP, ArrowRotation.DOWN,//
+        return addDirectionToTracker(startTrackerID, endTrackerID, distance, Arrow.UP, Arrow.DOWN,//
                 new HashMap<LocationObject, Integer>() {
                     private static final long serialVersionUID = 1L;
                     // LEFT - LocationObject, Distance
@@ -748,8 +748,8 @@ public class History {
         }
     }
 
-    private Direction addDirectionToTracker(int startTrackerID, int endTrackerID, int distance, ArrowRotation startToEnd,
-                                            ArrowRotation endToStart, Map<LocationObject, Integer> leftObjectMap, Map<LocationObject, Integer> rightObjectMap) {
+    private Direction addDirectionToTracker(int startTrackerID, int endTrackerID, int distance, Arrow startToEnd,
+                                            Arrow endToStart, Map<LocationObject, Integer> leftObjectMap, Map<LocationObject, Integer> rightObjectMap) {
 
         Tracker startTracker = initTracker(startTrackerID);
         Direction direction = new Direction(startToEnd);

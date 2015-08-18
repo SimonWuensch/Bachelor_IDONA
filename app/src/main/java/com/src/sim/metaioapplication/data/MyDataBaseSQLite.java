@@ -9,10 +9,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.src.sim.metaioapplication.asynctask.NetworkCommunikation;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.Location;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +20,7 @@ import java.util.Map;
 public class MyDataBaseSQLite extends SQLiteOpenHelper {
 
     private Context context;
-    private Map<LocationOnly, History> locationHistoryMap = new HashMap<>();
+    private Map<Location, History> locationHistoryMap = new HashMap<>();
 
     private static final String TAG = MyDataBaseSQLite.class.getSimpleName();
 
@@ -68,11 +66,11 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
         return db.query(TABLE_IDONA, null, null, null, null, null, _ID + " DESC");
     }
 
-    public Map<LocationOnly, History> getLocationHistoryMap(){
+    public Map<Location, History> getLocationHistoryMap(){
         if(locationHistoryMap != null)
             return locationHistoryMap;
 
-        locationHistoryMap = new HashMap<LocationOnly, History>();
+        locationHistoryMap = new HashMap<Location, History>();
         Cursor cursor = queryTableIdona();
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -80,7 +78,7 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
                     long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(_ID)));
                     String locationJson = cursor.getString(cursor.getColumnIndex(_LOCATION_JSON));
                     String historyJson = cursor.getString(cursor.getColumnIndex(_HISTORY_JSON));
-                    LocationOnly location = LocationOnly.JsonToLocationOnly(locationJson);
+                    Location location = Location.JsonToLocation(locationJson);
                     History history = History.JsonToHistory(historyJson);
                     location.setId(id);
                     history.setId(id);
@@ -95,18 +93,18 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
         return locationHistoryMap;
     }
 
-    public List<LocationOnly> getLocationList(){
+    public List<Location> getLocationList(){
         if(locationHistoryMap.size() > 0)
-           return new ArrayList<LocationOnly>(locationHistoryMap.keySet());
+           return new ArrayList<Location>(locationHistoryMap.keySet());
 
-        List<LocationOnly> locations = new ArrayList<LocationOnly>();
+        List<Location> locations = new ArrayList<Location>();
             Cursor cursor = queryTableIdona();
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     while (!cursor.isAfterLast()) {
                         long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(_ID)));
                         String locationJson = cursor.getString(cursor.getColumnIndex(_LOCATION_JSON));
-                        LocationOnly location = LocationOnly.JsonToLocationOnly(locationJson);
+                        Location location = Location.JsonToLocation(locationJson);
                         locations.add(location);
                         location.setId(id);
                         cursor.moveToNext();
@@ -118,9 +116,9 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
         return locations;
     }
 
-    public History getHistory(LocationOnly location){
+    public History getHistory(Location location){
         if(locationHistoryMap != null)
-            for(LocationOnly locationValue : locationHistoryMap.keySet()){
+            for(Location locationValue : locationHistoryMap.keySet()){
                 if(locationValue.getId() == location.getId()){
                     return locationHistoryMap.get(locationValue);
                 }
@@ -147,29 +145,29 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
 
     public void addLocation(final Location location){
         if(location.getHistory() != null) {
-            LocationOnly locationOnly = location.getLocationOnly();
             History history = location.getHistory();
+            location.setHistory(null);
             if(locationHistoryMap != null) {
-                locationHistoryMap.put(locationOnly, history);
+                locationHistoryMap.put(location, history);
             }
 
             try {
                 SQLiteDatabase db = getWritableDatabase();
                 ContentValues values = new ContentValues();
-                values.put(_LOCATION_JSON, locationOnly.toJson());
+                values.put(_LOCATION_JSON, location.toJson());
                 values.put(_HISTORY_JSON, history.toJson());
                 db.insert(TABLE_IDONA, null, values);
             } catch (SQLiteException e) {
-                Log.e(TAG, "ADD LOCATION ERROR: " + locationOnly.toJson(), e);
+                Log.e(TAG, "ADD LOCATION ERROR: " + location.toJson(), e);
             } finally {
-                Log.d(TAG, "ADD LOCATION: " + locationOnly.toJson());
+                Log.d(TAG, "ADD LOCATION: " + location.toJson());
             }
         }else{
             throw new NullPointerException("Location does not have a history... " + location.toJson());
         }
     }
 
-    public void deleteLocation(LocationOnly location){
+    public void deleteLocation(Location location){
         if(locationHistoryMap != null){
             locationHistoryMap.remove(location);
         }
@@ -186,19 +184,19 @@ public class MyDataBaseSQLite extends SQLiteOpenHelper {
     }
 
     public void updateLocationAndHistory(Location location, History history){
-        String locationOnlyJson =  location.getLocationOnly().toJson();
+        String locationJson =  location.toJson();
         String historyJson = history.toJson();
         try{
             SQLiteDatabase db = getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(_LOCATION_JSON, locationOnlyJson);
+            values.put(_LOCATION_JSON, locationJson);
             values.put(_HISTORY_JSON, historyJson);
             db.update(TABLE_IDONA, values, _ID + " = ?", new String[] {
                     Long.toString(location.getId())});
         }catch(SQLiteException e){
             Log.e(TAG, "UPDATE ERROR - LOCATION AND HISTORY ", e);
         }finally{
-            Log.d(TAG, "UPDATE - LOCATION AND HISTORY: " + locationOnlyJson + " HISTORY: " + historyJson);
+            Log.d(TAG, "UPDATE - LOCATION AND HISTORY: " + locationJson + " HISTORY: " + historyJson);
         }
     }
 }

@@ -12,7 +12,7 @@ import com.src.sim.metaioapplication.logic.resource.LocationObject.Kind;
 
 public class Direction {
 
-    public enum ArrowRotation {
+    public enum Arrow {
         DEFAULT(ARROWNORMAL, -10.0f, -10.0f, -10.0f),
 
         LEFT(ARROWNORMAL, 0.0f, 0.0f, 3.1599975f),
@@ -41,7 +41,7 @@ public class Direction {
         private String arrow;
         private float[] rotation = new float[3];
 
-        private ArrowRotation(String arrow, float x, float y, float z){
+        private Arrow(String arrow, float x, float y, float z){
             this.arrow = arrow;
             this.rotation = new float[] {x, y, z};
         }
@@ -74,33 +74,33 @@ public class Direction {
     public static String LEFTHAND = "lefthand";
     public static String RIGHTHAND = "righthand";
 
-    private ArrowRotation rotation;
+    private Arrow arrow;
     private int distance;
     private int trackerID;
     private Map<String, Map<LocationObject, Integer>> locationObjects;
-    Map<Kind, List<LocationObject>> locationObjectMap;
+    //Map<Kind, List<LocationObject>> locationObjectMap;
 
-    public Direction(Tracker tracker, int distance, ArrowRotation rotation) {
-        this.rotation = rotation;
+    public Direction(Tracker tracker, int distance, Arrow arrow) {
+        this.arrow = arrow;
         this.distance = distance;
         this.trackerID = tracker.getId();
         initLocationObjectMap();
     }
 
-    public Direction(ArrowRotation rotation) {
-        this.rotation = rotation;
+    public Direction(Arrow arrow) {
+        this.arrow = arrow;
         initLocationObjectMap();
     }
 
     public Direction() {
     }
 
-    public ArrowRotation getRotation() {
-        return rotation;
+    public Arrow getArrow() {
+        return arrow;
     }
 
-    public void setRotation(ArrowRotation rotation) {
-        this.rotation = rotation;
+    public void setArrow(Arrow arrow) {
+        this.arrow = arrow;
     }
 
     public int getDistance() {
@@ -127,17 +127,36 @@ public class Direction {
         this.locationObjects = locationObjects;
     }
 
+    //public Map<Kind, List<LocationObject>> getLocationObjectMaps() {
+    //    return locationObjectMap;
+    //}
+
     public Map<Kind, List<LocationObject>> getLocationObjectMap() {
+        Map<Kind, List<LocationObject>> locationObjectMap = new HashMap<Kind, List<LocationObject>>();
+        for(Map<LocationObject, Integer> locationObjectIntegerMap : locationObjects.values()){
+            for(final LocationObject lObject : locationObjectIntegerMap.keySet()){
+                if (!locationObjectMap.containsKey(lObject.getKind())) {
+                    locationObjectMap.put(lObject.getKind(), new ArrayList<LocationObject>() {
+                        private static final long serialVersionUID = 1L;
+                        {
+                            add(lObject);
+                        }
+                    });
+                } else {
+                    locationObjectMap.get(lObject.getKind()).add(lObject);
+                }
+            }
+        }
         return locationObjectMap;
     }
 
-    public void setLocationObjectMap(Map<Kind, List<LocationObject>> locationObjectMap) {
-        this.locationObjectMap = locationObjectMap;
-    }
+    //public void setLocationObjectMap(Map<Kind, List<LocationObject>> locationObjectMap) {
+    //    this.locationObjectMap = locationObjectMap;
+    //}
 
     private void initLocationObjectMap() {
         locationObjects = new HashMap<String, Map<LocationObject, Integer>>();
-        locationObjectMap = new HashMap<Kind, List<LocationObject>>();
+        //locationObjectMap = new HashMap<Kind, List<LocationObject>>();
         locationObjects.put(LEFTHAND, new HashMap<LocationObject, Integer>());
         locationObjects.put(RIGHTHAND, new HashMap<LocationObject, Integer>());
     }
@@ -220,7 +239,7 @@ public class Direction {
         }else return number + "th";
     }
 
-    public void setTracker(Tracker startTracker, Tracker endTracker, int distance, ArrowRotation rotation) {
+    public void setTracker(Tracker startTracker, Tracker endTracker, int distance, Arrow rotation) {
         if(endTracker != null){
             this.trackerID = endTracker.getId();
             this.distance = distance;
@@ -253,7 +272,7 @@ public class Direction {
 
     private void addLocationObject(final LocationObject lObject, int distance, String handside) {
         locationObjects.get(handside).put(lObject, distance);
-        if (!locationObjectMap.containsKey(lObject.getKind())) {
+       /* if (!locationObjectMap.containsKey(lObject.getKind())) {
             locationObjectMap.put(lObject.getKind(), new ArrayList<LocationObject>() {
                 private static final long serialVersionUID = 1L;
                 {
@@ -262,7 +281,7 @@ public class Direction {
             });
         } else {
             locationObjectMap.get(lObject.getKind()).add(lObject);
-        }
+        } */
     }
 
     // TODO delete

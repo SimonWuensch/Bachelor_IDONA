@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.logic.resource.History;
+import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.LocationOnly;
 
 public class ListObjectFragment extends Fragment {
     private static final String HISTORYJSON = "historyJson";
@@ -22,10 +22,10 @@ public class ListObjectFragment extends Fragment {
     private TextView tvLocationName, tvLocationStreetAndNumber, tvLocationZip, tvObjects;
     private ExpandableListView expListView;
 
-    private LocationOnly location;
+    private Location location;
     private History history;
 
-    public static ListObjectFragment newInstance(LocationOnly location, History history) {
+    public static ListObjectFragment newInstance(Location location, History history) {
         ListObjectFragment fragment = new ListObjectFragment();
         Bundle args = new Bundle();
         args.putString(LOCATIONJSON, location.toJson());
@@ -43,7 +43,7 @@ public class ListObjectFragment extends Fragment {
 
     private void loadArguments() {
         if (getArguments() != null) {
-            location = LocationOnly.JsonToLocationOnly(getArguments().getString(LOCATIONJSON));
+            location = Location.JsonToLocation(getArguments().getString(LOCATIONJSON));
             location.setId(getArguments().getLong(LOCATIONID));
             history = History.JsonToHistory(getArguments().getString(HISTORYJSON));
         }

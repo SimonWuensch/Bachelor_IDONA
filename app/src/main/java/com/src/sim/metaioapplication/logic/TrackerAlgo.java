@@ -179,7 +179,7 @@ public class TrackerAlgo {
 			}
 			oldTracker = tracker;
 		}
-		way += " (" + aim.getDirection().getRotation().name() + " " + aim.getDirection().printLocationObjectList() + ")";
+		way += " (" + aim.getDirection().getArrow().name() + " " + aim.getDirection().printLocationObjectList() + ")";
 		System.out.println(way);
 	}
 }

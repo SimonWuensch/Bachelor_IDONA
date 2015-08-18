@@ -34,9 +34,9 @@ public class Location {
         return jsonString;
     }
 
-	public LocationOnly getLocationOnly() {
+	/*public LocationOnly getLocationOnly() {
         return new LocationOnly(name, street, number, zip, place);
-	}
+	}*/
 
 	public static Location JsonToLocation(String jsonString) {
 		Genson genson = new Genson();
@@ -51,7 +51,6 @@ public class Location {
 	@JsonIgnore
 	public void setId(long id) {
 		this.id = id;
-        history.setId(id);
 	}
 
     public String getName() {
