@@ -9,9 +9,6 @@ import com.metaio.tools.io.AssetsManager;
 
 import java.io.IOException;
 
-/**
- * Created by Simon on 17.06.2015.
- */
 public class AssetsExtrater extends AsyncTask<Integer, Integer, Boolean> {
 
     private Activity activity;

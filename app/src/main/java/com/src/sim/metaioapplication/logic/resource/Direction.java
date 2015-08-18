@@ -127,10 +127,6 @@ public class Direction {
         this.locationObjects = locationObjects;
     }
 
-    //public Map<Kind, List<LocationObject>> getLocationObjectMaps() {
-    //    return locationObjectMap;
-    //}
-
     public Map<Kind, List<LocationObject>> getLocationObjectMap() {
         Map<Kind, List<LocationObject>> locationObjectMap = new HashMap<Kind, List<LocationObject>>();
         for(Map<LocationObject, Integer> locationObjectIntegerMap : locationObjects.values()){
@@ -150,13 +146,8 @@ public class Direction {
         return locationObjectMap;
     }
 
-    //public void setLocationObjectMap(Map<Kind, List<LocationObject>> locationObjectMap) {
-    //    this.locationObjectMap = locationObjectMap;
-    //}
-
     private void initLocationObjectMap() {
         locationObjects = new HashMap<String, Map<LocationObject, Integer>>();
-        //locationObjectMap = new HashMap<Kind, List<LocationObject>>();
         locationObjects.put(LEFTHAND, new HashMap<LocationObject, Integer>());
         locationObjects.put(RIGHTHAND, new HashMap<LocationObject, Integer>());
     }
@@ -272,19 +263,8 @@ public class Direction {
 
     private void addLocationObject(final LocationObject lObject, int distance, String handside) {
         locationObjects.get(handside).put(lObject, distance);
-       /* if (!locationObjectMap.containsKey(lObject.getKind())) {
-            locationObjectMap.put(lObject.getKind(), new ArrayList<LocationObject>() {
-                private static final long serialVersionUID = 1L;
-                {
-                    add(lObject);
-                }
-            });
-        } else {
-            locationObjectMap.get(lObject.getKind()).add(lObject);
-        } */
     }
 
-    // TODO delete
     public String printLocationObjectList() {
         StringBuilder builder = new StringBuilder();
 

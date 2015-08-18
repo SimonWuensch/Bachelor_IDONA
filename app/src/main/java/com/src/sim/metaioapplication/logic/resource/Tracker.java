@@ -16,7 +16,6 @@ public class Tracker {
 	}
 
 	public Tracker() {
-
 	}
 
 	public int getId() {

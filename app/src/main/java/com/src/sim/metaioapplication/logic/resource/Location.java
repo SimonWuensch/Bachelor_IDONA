@@ -1,11 +1,9 @@
 package com.src.sim.metaioapplication.logic.resource;
 
-import android.util.Log;
+    import com.owlike.genson.Genson;
+    import com.owlike.genson.annotation.JsonIgnore;
 
-import com.owlike.genson.Genson;
-import com.owlike.genson.annotation.JsonIgnore;
-
-public class Location {
+    public class Location {
 
 	@JsonIgnore private long id;
 	private String name;
@@ -33,10 +31,6 @@ public class Location {
         String jsonString = genson.serialize(this);
         return jsonString;
     }
-
-	/*public LocationOnly getLocationOnly() {
-        return new LocationOnly(name, street, number, zip, place);
-	}*/
 
 	public static Location JsonToLocation(String jsonString) {
 		Genson genson = new Genson();

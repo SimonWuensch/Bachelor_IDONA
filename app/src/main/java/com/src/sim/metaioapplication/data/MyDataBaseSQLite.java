@@ -1,6 +1,5 @@
 package com.src.sim.metaioapplication.data;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +18,6 @@ import java.util.Map;
 
 public class MyDataBaseSQLite extends SQLiteOpenHelper {
 
-    private Context context;
     private Map<Location, History> locationHistoryMap = new HashMap<>();
 
     private static final String TAG = MyDataBaseSQLite.class.getSimpleName();
