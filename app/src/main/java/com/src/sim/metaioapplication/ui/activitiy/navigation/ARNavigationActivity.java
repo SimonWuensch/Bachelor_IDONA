@@ -3,23 +3,19 @@ package com.src.sim.metaioapplication.ui.activitiy.navigation;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
-import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 import com.src.sim.metaioapplication.R;
 import com.src.sim.metaioapplication.logic.resource.Arrow;
-import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.History;
 import com.src.sim.metaioapplication.logic.resource.Location;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.Tracker;
+import com.src.sim.metaioapplication.logic.resource.Marker;
 import com.src.sim.metaioapplication.metaio.CallBackHandler;
 import com.src.sim.metaioapplication.ui.activitiy.start.StartMenuActivity;
 import com.src.sim.metaioapplication.ui.fragment.object.ListObjectFragment;
@@ -36,7 +32,7 @@ public class ARNavigationActivity extends ARViewActivity{
 
     private Location location;
     private History history;
-    private Map<Integer, Tracker> trackerMap;
+    private Map<Integer, Marker> markerMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class ARNavigationActivity extends ARViewActivity{
         history = History.JsonToHistory(getIntent().getStringExtra(StartMenuActivity.HISTORYEXTRA));
 
         String mTrackingFile = AssetsManager.getAssetPath(getBaseContext(), "AssetsOne/TrackingData.xml");
-        trackerMap = history.getTrackerMap();
+        markerMap = history.getMarkerMap();
         metaioSDK.setTrackingConfiguration(mTrackingFile);
     }
 
@@ -80,13 +76,13 @@ public class ARNavigationActivity extends ARViewActivity{
         showFragment(ListObjectFragment.newInstance(location, history));
         loadGeometries();
 
-        mCallbackHandler = new CallBackHandler(ARNavigationActivity.this, trackerMap, geometryMap);
+        mCallbackHandler = new CallBackHandler(ARNavigationActivity.this, markerMap, geometryMap);
         metaioSDK.registerCallback(mCallbackHandler);
     }
 
     protected void loadGeometries(){
-        for(Tracker tracker : trackerMap.values()){
-           loadGeometry(tracker.getId(), Arrow.DEFAULT);
+        for(Marker marker : markerMap.values()){
+           loadGeometry(marker.getId(), Arrow.DEFAULT);
         }
     }
 

@@ -19,13 +19,13 @@ public class Direction {
 
     private Arrow arrow;
     private int distance;
-    private int trackerID;
+    private int markerID;
     private Map<String, Map<LocationObject, Integer>> locationObjects;
 
-    public Direction(Tracker tracker, int distance, Arrow arrow) {
+    public Direction(Marker marker, int distance, Arrow arrow) {
         this.arrow = arrow;
         this.distance = distance;
-        this.trackerID = tracker.getId();
+        this.markerID = marker.getId();
         init();
     }
 
@@ -52,12 +52,12 @@ public class Direction {
         this.distance = distance;
     }
 
-    public int getTrackerID() {
-        return trackerID;
+    public int getMarkerID() {
+        return markerID;
     }
 
-    public void setTrackerID(int trackerID) {
-        this.trackerID = trackerID;
+    public void setMarkerID(int markerID) {
+        this.markerID = markerID;
     }
 
     public Map<String, Map<LocationObject, Integer>> getLocationObjects() {
@@ -171,12 +171,12 @@ public class Direction {
         }else return number + "th";
     }
 
-    public void setTracker(Tracker startTracker, Tracker endTracker, int distance, Arrow rotation) {
-        if(endTracker != null){
-            this.trackerID = endTracker.getId();
+    public void setMarker(Marker startMarker, Marker endMarker, int distance, Arrow rotation) {
+        if(endMarker != null){
+            this.markerID = endMarker.getId();
             this.distance = distance;
 
-            Direction endToStartDirection = new Direction(startTracker, distance, rotation);
+            Direction endToStartDirection = new Direction(startMarker, distance, rotation);
 
             for (LocationObject lObject : locationObjects.get(LEFTHAND).keySet()) {
                 endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(LEFTHAND).get(lObject),
@@ -186,12 +186,12 @@ public class Direction {
                 endToStartDirection.addLocationObject(lObject, distance - locationObjects.get(RIGHTHAND).get(lObject),
                         LEFTHAND);
 
-            endTracker.addDirection(endToStartDirection);
+            endMarker.addDirection(endToStartDirection);
         }
     }
 
-    public boolean hasTracker() {
-        return trackerID > 0;
+    public boolean hasMarker() {
+        return markerID > 0;
     }
 
     public void addLocationObjectToLeft(LocationObject lObject, int distance) {

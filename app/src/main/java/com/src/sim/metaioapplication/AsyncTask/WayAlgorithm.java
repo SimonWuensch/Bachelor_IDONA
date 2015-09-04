@@ -3,11 +3,10 @@ package com.src.sim.metaioapplication.asynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.src.sim.metaioapplication.logic.TrackerAlgo;
 import com.src.sim.metaioapplication.logic.resource.Aim;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.Tracker;
+import com.src.sim.metaioapplication.logic.resource.Marker;
 import com.src.sim.metaioapplication.metaio.CallBackHandler;
 
 import java.util.HashMap;
@@ -15,76 +14,76 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class WayAlgorithm extends AsyncTask<Integer, Integer, Map<Tracker, Direction>> {
+public class WayAlgorithm extends AsyncTask<Integer, Integer, Map<Marker, Direction>> {
 
-    private Tracker tracker;
+    private Marker marker;
     private LocationObject locationObject;
-    private TrackerAlgo trackerAlgo;
+    private com.src.sim.metaioapplication.logic.WayAlgorithm wayAlgorithm;
     private CallBackHandler callbackHandler;
 
-    public WayAlgorithm(CallBackHandler callbackHandler, TrackerAlgo trackerAlgo, Tracker tracker, LocationObject locationObject) {
+    public WayAlgorithm(CallBackHandler callbackHandler, com.src.sim.metaioapplication.logic.WayAlgorithm wayAlgorithm, Marker marker, LocationObject locationObject) {
         this.locationObject = locationObject;
-        this.trackerAlgo = trackerAlgo;
-        this.tracker = tracker;
+        this.wayAlgorithm = wayAlgorithm;
+        this.marker = marker;
         this.callbackHandler = callbackHandler;
     }
 
-    public static void calculateWay(CallBackHandler callbackHandler, TrackerAlgo trackerAlgo, Tracker tracker, LocationObject locationObject){
-        WayAlgorithm wayAlgorithm = new WayAlgorithm(callbackHandler, trackerAlgo, tracker, locationObject);
+    public static void calculateWay(CallBackHandler callbackHandler, com.src.sim.metaioapplication.logic.WayAlgorithm markerAlgo, Marker marker, LocationObject locationObject){
+        WayAlgorithm wayAlgorithm = new WayAlgorithm(callbackHandler, markerAlgo, marker, locationObject);
         wayAlgorithm.execute();
     }
 
     @Override
-    protected Map<Tracker, Direction> doInBackground(Integer... integers) {
-        Map<Aim, List<List<Tracker>>> ways = trackerAlgo.findWays(tracker, locationObject);
-        return initializeTrackers(ways);
+    protected Map<Marker, Direction> doInBackground(Integer... integers) {
+        Map<Aim, List<List<Marker>>> ways = wayAlgorithm.findWays(marker, locationObject);
+        return initializeMarkers(ways);
     }
 
-    private Map<Tracker, Direction> initializeTrackers(Map<Aim, List<List<Tracker>>> ways){
-        Map<Tracker, Direction> trackerDirectionMap = new HashMap<Tracker, Direction>();
+    private Map<Marker, Direction> initializeMarkers(Map<Aim, List<List<Marker>>> ways){
+        Map<Marker, Direction> markerDirectionMap = new HashMap<Marker, Direction>();
 
-        Log.d(WayAlgorithm.class.getSimpleName(), "Trackers initialization..." );
+        Log.d(WayAlgorithm.class.getSimpleName(), "Markers initialization..." );
         Set<Aim> aims = ways.keySet();
         if(aims.size() <= 0){
-            return new HashMap<Tracker, Direction>();
+            return new HashMap<Marker, Direction>();
         }
 
         Aim aim = (Aim)ways.keySet().toArray()[0];
-        List<Tracker> trackers = ways.get(aim).get(0);
-        TrackerAlgo.printWay(trackers, aim);
+        List<Marker> markers = ways.get(aim).get(0);
+        com.src.sim.metaioapplication.logic.WayAlgorithm.printWay(markers, aim);
         Direction direction = null;
 
         callbackHandler.resetIDList();
-        callbackHandler.addIDToIDList(trackers.get(0).getId());
-        for(int i = 1; i < trackers.size(); i++){
-            callbackHandler.addIDToIDList(trackers.get(i).getId());
-            Tracker oldTracker = trackers.get(i-1);
-            Tracker newTracker = trackers.get(i);
+        callbackHandler.addIDToIDList(markers.get(0).getId());
+        for(int i = 1; i < markers.size(); i++){
+            callbackHandler.addIDToIDList(markers.get(i).getId());
+            Marker oldMarker = markers.get(i-1);
+            Marker newMarker = markers.get(i);
 
-            direction = oldTracker.getDirectionToTracker(newTracker);
-            trackerDirectionMap.put(oldTracker, direction);
+            direction = oldMarker.getDirectionToMarker(newMarker);
+            markerDirectionMap.put(oldMarker, direction);
 
-            if(i == trackers.size() - 1){
-                direction = newTracker.getDirectionToLocationObject(aim.getlObject());
-                trackerDirectionMap.put(newTracker, direction);
+            if(i == markers.size() - 1){
+                direction = newMarker.getDirectionToLocationObject(aim.getlObject());
+                markerDirectionMap.put(newMarker, direction);
             }
         }
-        if(trackers.size() == 1){
-            Tracker tracker = trackers.get(0);
-            trackerDirectionMap.put(tracker, tracker.getDirectionToLocationObject(locationObject));
+        if(markers.size() == 1){
+            Marker marker = markers.get(0);
+            markerDirectionMap.put(marker, marker.getDirectionToLocationObject(locationObject));
         }
 
-        return trackerDirectionMap;
+        return markerDirectionMap;
     }
 
     @Override
-    protected void onPostExecute(Map<Tracker, Direction> trackerDirectionMap) {
-        super.onPostExecute(trackerDirectionMap);
+    protected void onPostExecute(Map<Marker, Direction> markerDirectionMap) {
+        super.onPostExecute(markerDirectionMap);
 
-        for(Tracker tracker : trackerDirectionMap.keySet()){
-            Direction direction = trackerDirectionMap.get(tracker);
-            Log.d(WayAlgorithm.class.getSimpleName(), "Update Rotation from IGeometry with id " + tracker.getId());
-            callbackHandler.updateGeometryRotation(tracker.getId(), direction);
+        for(Marker marker : markerDirectionMap.keySet()){
+            Direction direction = markerDirectionMap.get(marker);
+            Log.d(WayAlgorithm.class.getSimpleName(), "Update Rotation from IGeometry with id " + marker.getId());
+            callbackHandler.updateGeometryRotation(marker.getId(), direction);
         }
     }
 }

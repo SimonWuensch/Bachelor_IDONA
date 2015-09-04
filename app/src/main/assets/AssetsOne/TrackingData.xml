@@ -24,349 +24,349 @@
             <SensorCOS>
                 <SensorCosID>Patch1</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_1_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_1_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch2</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_2_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_2_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS><SensorCOS>
                 <SensorCosID>Patch3</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_3_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_3_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch4</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_4_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_4_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch5</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_5_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_5_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch6</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_6_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_6_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch7</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_7_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_7_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch8</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_8_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_8_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch9</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_9_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_9_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch10</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_10_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_10_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch11</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_11_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_11_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch12</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_12_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_12_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch13</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_13_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_13_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch14</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_14_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_14_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch15</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_15_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_15_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch16</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_16_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_16_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch17</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_17_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_17_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch18</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_18_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_18_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch19</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_19_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_19_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch20</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_20_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_20_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch21</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_21_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_21_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch22</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_22_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_22_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch23</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_23_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_23_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch24</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_24_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_24_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch25</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_25_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_25_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch26</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_26_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_26_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch27</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_27_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_27_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch28</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_28_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_28_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch29</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_29_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_29_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch30</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_30_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_30_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch31</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_31_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_31_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch32</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_32_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_32_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch33</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_33_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_33_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch34</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_34_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_34_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch35</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_35_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_35_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch36</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_36_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_36_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch37</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_37_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_37_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch38</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_38_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_38_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch39</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_39_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_39_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch40</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_40_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_40_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch41</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_41_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_41_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch42</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_42_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_42_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch43</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_43_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_43_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch44</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_44_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_44_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch45</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_45_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_45_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch46</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_46_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_46_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch47</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_47_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_47_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch48</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_48_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_48_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch49</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_49_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_49_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
             <SensorCOS>
                 <SensorCosID>Patch50</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>tracker/ID_marker_50_500mm-1.png</ReferenceImage>
+                    <ReferenceImage>marker/ID_marker_50_500mm-1.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>

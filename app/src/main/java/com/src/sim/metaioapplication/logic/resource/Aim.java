@@ -2,24 +2,24 @@ package com.src.sim.metaioapplication.logic.resource;
 
 public class Aim {
 
-	private Tracker tracker;
+	private Marker marker;
 	private LocationObject lObject;
 	private Direction direction;
 
-	public Aim(Tracker tracker, LocationObject lObject) {
-		this.tracker = tracker;
-		this.direction = tracker.getDirectionToLocationObject(lObject);
+	public Aim(Marker marker, LocationObject lObject) {
+		this.marker = marker;
+		this.direction = marker.getDirectionToLocationObject(lObject);
 		this.lObject = lObject;
 	}
 
     public Aim(){}
 
-	public Tracker getTracker() {
-		return tracker;
+	public Marker getMarker() {
+		return marker;
 	}
 
-	public void setTracker(Tracker tracker) {
-		this.tracker = tracker;
+	public void setMarker(Marker marker) {
+		this.marker = marker;
 	}
 
 	public LocationObject getlObject() {
@@ -42,7 +42,7 @@ public class Aim {
 		this.direction = direction;
 	}
 
-    public boolean hasTracker(){
-        return tracker != null;
+    public boolean hasMarker(){
+        return marker != null;
     }
 }

@@ -7,12 +7,11 @@ import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
-import com.src.sim.metaioapplication.asynctask.WayAlgorithm;
 import com.src.sim.metaioapplication.dialog.DialogManager;
-import com.src.sim.metaioapplication.logic.TrackerAlgo;
+import com.src.sim.metaioapplication.logic.WayAlgorithm;
 import com.src.sim.metaioapplication.logic.resource.Direction;
 import com.src.sim.metaioapplication.logic.resource.LocationObject;
-import com.src.sim.metaioapplication.logic.resource.Tracker;
+import com.src.sim.metaioapplication.logic.resource.Marker;
 import com.src.sim.metaioapplication.ui.activitiy.navigation.ARNavigationActivity;
 
 import java.util.ArrayList;
@@ -25,16 +24,16 @@ public class CallBackHandler extends IMetaioSDKCallback {
 
     private List<Integer> idList;
     private Map<Integer, List<IGeometry>> geometryMap;
-    private Map<Integer, Tracker> trackerMap;
+    private Map<Integer, Marker> markerMap;
 
-    private int currentTrackerID;
+    private int currentMarkerID;
     private LocationObject locationObject;
     private boolean isFirstStart = true;
     private DialogManager dialogManager = null;
 
-    public CallBackHandler(Activity activity, Map<Integer, Tracker> trackerMap, Map<Integer, List<IGeometry>> geometryMap){
+    public CallBackHandler(Activity activity, Map<Integer, Marker> markerMap, Map<Integer, List<IGeometry>> geometryMap){
         this.geometryMap = geometryMap;
-        this.trackerMap = trackerMap;
+        this.markerMap = markerMap;
         this.idList = new ArrayList<Integer>();
         this.activity = activity;
         this.dialogManager = new DialogManager(activity);
@@ -52,18 +51,18 @@ public class CallBackHandler extends IMetaioSDKCallback {
          if (trackingValues.size() >= 1 && !isFirstStart && locationObject != null) {
              TrackingValues value = trackingValues.get(0);
              int systemId = value.getCoordinateSystemID();
-             Log.d(CallBackHandler.class.getSimpleName(), "Got Tracker with id " + systemId);
+             Log.d(CallBackHandler.class.getSimpleName(), "Got Marker with id " + systemId);
 
-             Tracker tracker = trackerMap.get(systemId);
+             Marker marker = markerMap.get(systemId);
 
-             if(tracker != null ) {
-                 currentTrackerID = systemId;
+             if(marker != null ) {
+                 currentMarkerID = systemId;
                  if(!idList.contains(systemId)) {
                      Log.d(CallBackHandler.class.getSimpleName(), "ID is not in IDList " + systemId);
-                     WayAlgorithm.calculateWay(this, new TrackerAlgo(trackerMap), tracker, locationObject);
+                     com.src.sim.metaioapplication.asynctask.WayAlgorithm.calculateWay(this, new WayAlgorithm(markerMap), marker, locationObject);
                  }
-                 Direction direction = tracker.getDirectionToLocationObject(locationObject);
-                 if(tracker.getDirectionToLocationObject(locationObject) != null){
+                 Direction direction = marker.getDirectionToLocationObject(locationObject);
+                 if(marker.getDirectionToLocationObject(locationObject) != null){
                      dialogManager.aimFoundDialog(direction, locationObject);
                  }
              }
@@ -97,7 +96,7 @@ public class CallBackHandler extends IMetaioSDKCallback {
     }
 
     public IGeometry getCurrentIGeometry(){
-        List<IGeometry> geometries =  geometryMap.get(currentTrackerID);
+        List<IGeometry> geometries =  geometryMap.get(currentMarkerID);
         if(geometries != null)
             for(IGeometry geometry : geometries){
                 if(geometry.isVisible()) {
